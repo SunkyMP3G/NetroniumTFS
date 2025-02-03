@@ -1,0 +1,22 @@
+name: Suggestion
+description: Make a suggestion for the mod
+labels: ["Suggestion"]
+assignees:
+  - SunkyMP3G
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the thing you want to suggest
+      placeholder: Suggestion
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Other
+      description: Are you sure no one has suggested this feature? Maybe it's already added? Check [these issues](https://github.com/SunkyMP3G/NetroniumTFS/issues?q=is%3Aissue) and [the code](https://github.com/SunkyMP3G/NetroniumTFS/tree/master/src/netro/content)
+      options:
+        - label: I checked other issues and the code to make sure my suggestion isn't already made or/and added
+          required: true
