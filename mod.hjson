@@ -1,7 +1,7 @@
 name: "netroniummod"
 repo: "sunkymp3g/Netronium-TFS"
 minGameVersion: 146
-version: "CU-2.beta1"
+version: "CU-2.dev"
 main: "netro.Netronium"
 
 displayName: "Netronium: The Final Showdown"

@@ -20,7 +20,7 @@ public class NetroUnits {
     public static UnitType
 
     // Core units
-    unite,
+    unite, verge,
 
     //T1
     hope, spark, kamikaze, plasma,
@@ -37,7 +37,7 @@ public class NetroUnits {
     public static void load() {
 
         //Core units
-        unite = new NetroUnitType("unite"){{
+        unite = new NetroUnitType("unite"){{ // If only the mod was in Soviet Union
             coreUnitDock = true;
             controller = u -> new BuilderAI(true, 500);
             isEnemy = false;
@@ -68,6 +68,8 @@ public class NetroUnits {
             targetable = false;
             hittable = false;
             payloadCapacity = tilePayload;
+
+            alwaysUnlocked = true;
 
             setEnginesMirror(
                 new UnitEngine(18 / 4f, -17 / 4f, 2f, 315f)
@@ -100,32 +102,103 @@ public class NetroUnits {
             }});
         }};
 
+        verge = new NetroUnitType("verge"){{
+            coreUnitDock = true;
+            controller = u -> new BuilderAI(true, 500);
+            isEnemy = false;
+            this.constructor = UnitEntity::create;
+
+            range = 80f;
+            faceTarget = true;
+            targetPriority = -2;
+            lowAltitude = false;
+            mineWalls = true;
+            mineFloor = true;
+            mineHardnessScaling = false;
+            flying = true;
+            mineSpeed = 6f;
+            mineTier = 3;
+            buildSpeed = 1.4f;
+            drag = 0.09f;
+            speed = 4.7f;
+            rotateSpeed = 6f;
+            accel = 0.09f;
+            itemCapacity = 80;
+            health = 220f;
+            armor = 3f;
+            hitSize = 9f;
+            vulnerableWithPayloads = true;
+
+            fogRadius = 0f;
+            targetable = false;
+            hittable = false;
+            payloadCapacity = tilePayload;
+
+            alwaysUnlocked = true;
+
+            setEnginesMirror(
+                    new UnitEngine(18 / 4f, -17 / 4f, 2f, 315f)
+            );
+
+            weapons.add(new RepairBeamWeapon(){{
+                widthSinMag = 0.11f;
+                reload = 20f;
+                x = 5f;
+                y = 5f;
+                rotate = false;
+                shootY = 0f;
+                beamWidth = 0.7f;
+                repairSpeed = 0.75f;
+                fractionRepairSpeed = 0.01f;
+                aimDst = 0f;
+                shootCone = 15f;
+                mirror = true;
+
+                targetUnits = false;
+                targetBuildings = true;
+                autoTarget = false;
+                controllable = true;
+                laserColor = Pal.heal;
+                healColor = Pal.heal;
+
+                bullet = new BulletType(){{
+                    maxRange = 80f;
+                }};
+            }});
+        }};
+
         //T1
         hope = new TankUnitType("hope"){{ // Tonk
-            hitSize = 13f;
             health = 250f;
+            hitSize = 13f;
             armor = 2f;
             speed = 0.6f;
+            rotateSpeed = 2.6f;
             flying = false;
             this.constructor = TankUnit::create;
             itemCapacity = 0;
             treadPullOffset = 3;
-            treadFrames = 30;
+            treadFrames = 8;
 
-            treadRects = new Rect[]{new Rect(8 - 32f, 4 - 32f, 11, 56)};
+            treadRects = new Rect[]{new Rect(8f - 32f, 4f - 32f, 11f, 56f)};
 
             researchCostMultiplier = 0f;
 
-            weapons.add(new Weapon("hope-weapon"){{
+            weapons.add(new Weapon("netroniummod-hope-weapon"){{
                 reload = 90f;
+                layerOffset = 0.0001f;
                 mirror = false;
                 top = true;
                 x = y = 0;
-                recoil = 3f;
+                shootY = 10f;
+                recoil = 2f;
+                rotate = true;
                 rotateSpeed = 8f;
+                shootCone = 2f;
                 shootSound = Sounds.laser;
-                bullet = new LaserBulletType(){{
-                    damage = 30f;
+                heatColor = Color.valueOf("f9350f");
+                cooldownTime = 30f;
+                bullet = new LaserBulletType(30f){{
                     sideAngle = 12f;
                     sideWidth = 1f;
                     sideLength = 10f;
@@ -137,7 +210,7 @@ public class NetroUnits {
             }});
         }};
 
-        spark = new NetroUnitType("spark"){{
+        spark = new NetroUnitType("spark"){{ // Flare 2.0
             hitSize = 8f;
             health = 90f;
             armor = 0f;
@@ -166,13 +239,11 @@ public class NetroUnits {
             }});
         }};
 
-        kamikaze = new NetroUnitType("kamikaze"){{
+        kamikaze = new NetroUnitType("kamikaze"){{ // Kamikaze
             hitSize = 8f;
             health = 25f;
             armor = 0f;
             speed = 2.2f;
-            aiController = HugAI::new;
-            playerControllable = true;
             range = 40f;
             drag = accel = 0.06f;
             flying = true;
@@ -206,7 +277,7 @@ public class NetroUnits {
             }});
         }};
 
-        plasma = new NetroUnitType("plasma"){{
+        plasma = new NetroUnitType("plasma"){{ // I call him Wheatley Crab
             hitSize = 9f;
             health = 200;
             armor = 3f;
@@ -222,15 +293,15 @@ public class NetroUnits {
             allowLegStep = true;
 
             legCount = 6;
-            legLength = 8f;
+            legLength = 14f;
             legGroupSize = 3;
             lockLegBase = true;
             legContinuousMove = true;
-            legExtension = -3f;
-            legBaseOffset = 7f;
+            legExtension = -5f;
+            legBaseOffset = 4f;
             legMaxLength = 1.1f;
             legMinLength = 0.2f;
-            legLengthScl = 0.95f;
+            legLengthScl = 1f;
             legForwardScl = 0.9f;
 
             legMoveSpace = 1f;
@@ -271,7 +342,7 @@ public class NetroUnits {
 
 
         // Bosses
-        hydra = new NetroBossUnit("hydra"){{
+        hydra = new NetroBossUnit("hydra"){{ // Absolutely not a market
             health = 7500;
             armor = 3f;
             speed = 0.6f;
@@ -330,10 +401,10 @@ public class NetroUnits {
                         waveRad = 40f;
                     }};
                 }};
-
             }});
 
-            abilities.add(new SpawnDeathAbility(NetroUnits.hydraHead, 2, 8f));
+            // TODO Fix the crash
+            // abilities.add(new SpawnDeathAbility(NetroUnits.hydraHead, 2, 8f));
         }};
 
         hydraHead = new NetroBossUnit("hydra-head"){{
@@ -398,7 +469,7 @@ public class NetroUnits {
             }});
         }};
 
-        bomber = new NetroBossUnit("bomber"){{
+        bomber = new NetroBossUnit("bomber"){{ // Kamikaze, but OP
             health = 15000;
             armor = 4f;
             speed = 0.3f;
@@ -408,7 +479,7 @@ public class NetroUnits {
             engineSize = 2f;
             hitSize = 54f;
             crashDamageMultiplier = 9999f; // Boss special ability
-            abilities.add(new ForceFieldAbility(100f, 0f, 10000f, 99999f * 10, 100, 0f){});
+            abilities.add(new ForceFieldAbility(100f, 0f, 10000f, 99999f * 10, 10, 0f){});
             flying = true;
             this.constructor = UnitEntity::create;
 
@@ -440,7 +511,7 @@ public class NetroUnits {
 
 
         // Other
-        train = new TankUnitType("train"){{
+        train = new NeoplasmUnitType("train"){{ // THOMAS
             health = 20000;
             armor = 20000f;
             targetable = killable = false;
@@ -453,7 +524,13 @@ public class NetroUnits {
             loopSoundVolume = 0.6f;
             targetAir = false;
             canDrown = false;
-            this.constructor = TankUnit::create;
+            segments = 1;
+            drawBody = true;
+
+            segmentScl = 0f;
+            segmentPhase = 0f;
+
+            this.constructor = CrawlUnit::create;
             drawCell = false;
 
             abilities.add(new MoveEffectAbility(){{
