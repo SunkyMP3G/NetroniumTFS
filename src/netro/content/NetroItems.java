@@ -6,7 +6,7 @@ import mindustry.type.*;
 public class NetroItems {
     public static Item
     // T1
-        dionite, trinite, aluminium, ferroAluminium,
+        dionite, trinite,
     // T2
         netroCopper, steelIngot,
     // T... (For later)
@@ -21,16 +21,6 @@ public class NetroItems {
 
         trinite = new Item("trinite", Color.valueOf("62bfa9")){{
             hardness = 2;
-        }};
-
-        aluminium = new Item("raw-aluminium", Color.valueOf("aaaaaa")){{ //TODO resprite
-            hardness = 3;
-            buildable = false;
-        }};
-
-        ferroAluminium = new Item("ferroaluminium", Color.valueOf("909090")){{ //TODO resprite
-            cost = 2f;
-            buildable = true;
         }};
 
         netroCopper = new Item("netrocopper", Color.valueOf("d99d73")){{

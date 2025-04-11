@@ -1,6 +1,6 @@
 name: "netroniummod"
 repo: "sunkymp3g/Netronium-TFS"
-minGameVersion: 146
+minGameVersion: 147
 version: "CU-2.dev"
 main: "netro.Netronium"
 

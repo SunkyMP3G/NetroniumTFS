@@ -15,6 +15,7 @@ public class Netronium extends Mod{
         NetroUnits.load();
         NetroBlocks.load();
         NetroWeathers.load();
+        NetroLoadouts.load();
         NetroPlanets.load();
         // NetroSectors.load();
         NetroTechTree.load();

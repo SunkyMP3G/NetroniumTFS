@@ -10,6 +10,7 @@ public class NetroSectors {
     public static void load(){
         firstSteps = new SectorPreset("first-steps", NetroPlanets.netroniumPlanet, 15){{
             difficulty = 0;
+            captureWave = 10;
             isLastSector = true;
         }};
     }

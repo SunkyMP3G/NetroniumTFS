@@ -1,10 +1,11 @@
 package netro.content;
 
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.math.Mathf;
-import arc.struct.Seq;
+import arc.graphics.*;
+import arc.graphics.g2d.*;
+import arc.math.*;
+import arc.struct.*;
 import classes.*;
+import static mindustry.Vars.*;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
@@ -18,10 +19,7 @@ import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.liquid.*;
-import mindustry.world.blocks.logic.LogicBlock;
-import mindustry.world.blocks.logic.MemoryBlock;
-import mindustry.world.blocks.logic.MessageBlock;
-import mindustry.world.blocks.logic.SwitchBlock;
+import mindustry.world.blocks.logic.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.*;
@@ -62,11 +60,11 @@ public class NetroBlocks {
     // Liquids
     alumPump, alumPipe, alumRouter,
 
-    // Factories
-    alloyFurnace, steelFurnace,
+    // Production
+    alloyFurnace, steelFurnace, snowyHeater,
 
     // Energy
-    dioniteNode,
+    dioniteNode, testReactor,
 
     // Turrets
     origin, tesla, volcano, //Volcano is a turret. Change my mind
@@ -81,7 +79,7 @@ public class NetroBlocks {
     netroProcessor, netroMessage, netroCell, netroSwitch,
 
     // Editor only
-    supersteelWall, largeSupersteelWall;
+    supersteelWall, largeSupersteelWall, snowyModule;
 
     public static void load(){
 
@@ -236,9 +234,7 @@ public class NetroBlocks {
             health = 100;
             size = 2;
             squareSprite = false;
-            hasLiquids = false;
-            consumeLiquid(NetroLiquids.cleanWater, 2f/fluid);
-            liquidBoostIntensity = 1.2f;
+            consumeLiquid(NetroLiquids.cleanWater, 2f/fluid).boost();
         }};
 
         steelDrill = new Drill("steel-drill"){{
@@ -250,21 +246,20 @@ public class NetroBlocks {
             size = 2;
             squareSprite = false;
             hasLiquids = true;
-            consumeLiquid(NetroLiquids.cleanWater, 3f/fluid);
-            liquidBoostIntensity = 1.2f;
+            consumeLiquid(NetroLiquids.cleanWater, 3f/fluid).boost();
         }};
 
 
         //Liquids
         alumPump = new AttributeCrafter("aluminium-pump"){{
-            requirements(Category.production, with(NetroItems.dionite, 60, NetroItems.trinite, 20));
+            requirements(Category.production, with(NetroItems.dionite, 100, NetroItems.trinite, 50));
             attribute = Attribute.steam;
             group = BlockGroup.liquids;
             minEfficiency = 9f - 0.0001f;
             baseEfficiency = 0f;
             displayEfficiency = false;
             craftEffect = Fx.turbinegenerate;
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawBlurSpin("-rotator", 5f), new DrawRegion("-mid"), new DrawLiquidTile(Liquids.water, 38f / 4f), new DrawDefault());
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawBlurSpin("-rotator", 6f), new DrawRegion("-mid"), new DrawLiquidTile(Liquids.water, 38f / 4f), new DrawDefault());
             craftTime = 120f;
             size = 3;
             ambientSound = Sounds.hum;
@@ -279,13 +274,13 @@ public class NetroBlocks {
         }};
 
         alumPipe = new Conduit("aluminium-pipe"){{
-            requirements(Category.liquid, with(NetroItems.ferroAluminium, 1));
+            requirements(Category.liquid, with(NetroItems.dionite, 1, NetroItems.trinite, 1));
             underBullets = true;
             health = 10;
         }};
 
         alumRouter = new LiquidRouter("aluminium-router"){{
-            requirements(Category.liquid, with(NetroItems.ferroAluminium, 3));
+            requirements(Category.liquid, with(NetroItems.dionite, 3, NetroItems.trinite, 3));
             health = 20;
             liquidCapacity = 18f;
             underBullets = true;
@@ -293,12 +288,12 @@ public class NetroBlocks {
         }};
 
 
-        // Factories
+        // Production
         alloyFurnace = new GenericCrafter("alloy-furnace"){{
             requirements(Category.crafting, with(NetroItems.dionite, 90));
             health = 200;
             craftEffect = Fx.none;
-            outputItem = new ItemStack(NetroItems.ferroAluminium, 1);
+            outputItem = new ItemStack(NetroItems.netroCopper, 1);
             craftTime = 120f;
             size = 3;
             hasPower = true;
@@ -309,13 +304,13 @@ public class NetroBlocks {
             ambientSoundVolume = 0.12f;
             squareSprite = false;
 
-            consumeItems(with(NetroItems.dionite, 6, NetroItems.aluminium, 2));
+            consumeItems(with(NetroItems.dionite, 6, NetroItems.trinite, 2));
             consumePower(5/energy);
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawArcSmelt(), new DrawDefault());
         }};
 
         steelFurnace = new GenericCrafter("steel-furnace"){{
-            requirements(Category.crafting, with(NetroItems.dionite, 180, NetroItems.ferroAluminium, 60, NetroItems.netroCopper, 50));
+            requirements(Category.crafting, with(NetroItems.dionite, 180, NetroItems.steelIngot, 60, NetroItems.netroCopper, 50));
             health = 400;
             craftEffect = Fx.none;
             outputItem = new ItemStack(NetroItems.steelIngot, 1);
@@ -329,9 +324,21 @@ public class NetroBlocks {
             ambientSoundVolume = 0.12f;
             squareSprite = false;
 
-            consumeItems(with(NetroItems.dionite, 3, NetroItems.aluminium, 2, NetroItems.netroCopper, 2));
+            consumeItems(with(NetroItems.dionite, 3, NetroItems.steelIngot, 2, NetroItems.netroCopper, 2));
             consumePower(20/energy);
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawArcSmelt(), new DrawDefault());
+        }};
+
+        snowyHeater = new OverdriveProjector("snowy-heater"){{
+            requirements(Category.effect, with(NetroItems.dionite, 90,  NetroItems.trinite, 60));
+            health = 200;
+            size = 2;
+            speedBoost = 1f;
+            range = 36f;
+            useTime = 4*seconds;
+            hasBoost = false;
+            consumeItems(with(NetroItems.trinite, 1));
+            consumePower(8f/energy);
         }};
 
 
@@ -342,6 +349,41 @@ public class NetroBlocks {
             health = 40;
             range = 5;
             consumePowerBuffered(0f);
+        }};
+
+        testReactor = new VariableReactor("test-reactor"){{
+            requirements(Category.power, with());
+            buildVisibility = BuildVisibility.sandboxOnly;
+            health = 12000;
+            armor = 5f;
+            powerProduction = 240f/energy;
+            maxHeat = 400f;
+            unstableSpeed = 1f / 60f / 120f; //Slow, to make more time for players to regret their life and logistic mistakes
+
+            consumePower(25f);
+            consumeLiquid(NetroLiquids.neutronium, 10f/fluid);
+
+            flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator);
+            schematicPriority = -5;
+
+            liquidCapacity = 200f;
+            explosionMinWarmup = 0.5f;
+            explosionShake = 20f;
+            explosionShakeDuration = 120f;
+
+            explosionRadius = 50;
+            explosionDamage = 9999999;
+
+            ambientSound = Sounds.flux;
+            ambientSoundVolume = 0.19f;
+
+            explosionPuddles = 70;
+            explosionPuddleRange = 10*tilesize;
+            explosionPuddleLiquid = Liquids.slag;
+            explosionPuddleAmount = 120f;
+            logicConfigurable = false;
+
+            size = 5;
         }};
 
 
@@ -430,7 +472,7 @@ public class NetroBlocks {
                 ammoMultiplier = 0f;
                 Draw.color(Color.black);
                 Draw.z(121);
-                shootEffect = new MultiEffect(Fx.titanExplosion, Fx.titanSmoke);
+                shootEffect = new MultiEffect(Fx.bigShockwave, new WrapEffect(Fx.titanSmoke, Pal.redLight));
                 shootSound = Sounds.titanExplosion;
                     reloadMultiplier = 1f;
                     despawnEffect = hitEffect = Fx.none;
@@ -519,7 +561,7 @@ public class NetroBlocks {
 
         // Logic
         netroProcessor = new LogicBlock("netro-processor"){{
-            requirements(Category.logic, with(NetroItems.netroCopper, 90, NetroItems.dionite, 140, NetroItems.ferroAluminium, 60));
+            requirements(Category.logic, with(NetroItems.netroCopper, 90, NetroItems.dionite, 140, NetroItems.netroCopper, 60));
             health = 80;
 
             instructionsPerTick = 2;
@@ -563,6 +605,19 @@ public class NetroBlocks {
             absorbLasers = true;
             drawTeamOverlay = false;
             targetable = false;
+        }};
+
+        snowyModule = new OverdriveProjector("snowy-module"){{
+            requirements(Category.effect, BuildVisibility.sandboxOnly, with());
+            health = Integer.MAX_VALUE;
+            armor = Float.POSITIVE_INFINITY;
+            size = 1;
+            speedBoost = 0.8f;
+            range = 6000f;
+            targetable = destructible = rebuildable = false;
+            hasBoost = false;
+            consumeItems(with());
+            consumePower(0f);
         }};
     }
 }

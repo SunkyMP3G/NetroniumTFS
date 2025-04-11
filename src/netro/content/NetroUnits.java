@@ -15,6 +15,7 @@ import mindustry.type.*;
 import mindustry.ai.types.*;
 import mindustry.type.unit.*;
 import mindustry.type.weapons.*;
+import mindustry.world.meta.BlockFlag;
 
 public class NetroUnits {
     public static UnitType
@@ -169,7 +170,7 @@ public class NetroUnits {
 
         //T1
         hope = new TankUnitType("hope"){{ // Tonk
-            health = 250f;
+            health = 200f;
             hitSize = 13f;
             armor = 2f;
             speed = 0.6f;
@@ -177,15 +178,15 @@ public class NetroUnits {
             flying = false;
             this.constructor = TankUnit::create;
             itemCapacity = 0;
-            treadPullOffset = 3;
-            treadFrames = 8;
+            treadPullOffset = 0;
+            treadFrames = 14;
 
             treadRects = new Rect[]{new Rect(8f - 32f, 4f - 32f, 11f, 56f)};
 
             researchCostMultiplier = 0f;
 
             weapons.add(new Weapon("netroniummod-hope-weapon"){{
-                reload = 90f;
+                reload = cooldownTime = 90f;
                 layerOffset = 0.0001f;
                 mirror = false;
                 top = true;
@@ -193,11 +194,10 @@ public class NetroUnits {
                 shootY = 10f;
                 recoil = 2f;
                 rotate = true;
-                rotateSpeed = 8f;
+                rotateSpeed = 4f;
                 shootCone = 2f;
                 shootSound = Sounds.laser;
                 heatColor = Color.valueOf("f9350f");
-                cooldownTime = 30f;
                 bullet = new LaserBulletType(30f){{
                     sideAngle = 12f;
                     sideWidth = 1f;
@@ -278,11 +278,13 @@ public class NetroUnits {
         }};
 
         plasma = new NetroUnitType("plasma"){{ // I call him Wheatley Crab
+            aiController = DefenderAI::new;
             hitSize = 9f;
-            health = 200;
+            health = 220;
             armor = 3f;
-            speed = 0.74f;
+            speed = 0.70f;
             flying = false;
+            playerControllable = true;
             this.constructor = LegsUnit::create;
             itemCapacity = 0;
             researchCostMultiplier = 0f;
@@ -475,12 +477,14 @@ public class NetroUnits {
             speed = 0.3f;
             drag = 0.04f;
             accel = 0.08f;
+            aiController = HugAI::new;
             rotateSpeed = 1f;
             engineSize = 2f;
             hitSize = 54f;
             crashDamageMultiplier = 9999f; // Boss special ability
-            abilities.add(new ForceFieldAbility(100f, 0f, 10000f, 99999f * 10, 10, 0f){});
+            abilities.add(new ForceFieldAbility(30f, 0.1f, 10000f, 600f * 10, 18, 0f){});
             flying = true;
+            targetFlags = new BlockFlag[]{BlockFlag.core, null};
             this.constructor = UnitEntity::create;
 
             weapons.add(new Weapon() {{
@@ -536,7 +540,7 @@ public class NetroUnits {
             abilities.add(new MoveEffectAbility(){{
                 effect = Fx.missileTrailSmoke;
                 rotation = 180f;
-                y = -9f;
+                y = -50f;
                 color = Color.grays(0.6f).lerp(Pal.redLight, 0.5f).a(0.4f);
                 interval = 7f;
             }});

@@ -8,7 +8,7 @@ import mindustry.type.*;
 
 public class NetroStatuses {
     public static StatusEffect
-    corrosion, weakCorrosion, lavaMelting, shock, buildSuppress, buildSlowdown, snowy, blizzard;
+    corrosion, weakCorrosion, lavaMelting, shock, stasis, signalLoss, armorBreak, frostBurn, buildSuppress, buildSlowdown, snowy, blizzard;
 
     public static void load(){
         corrosion = new StatusEffect("corrosion"){{ // When you step on the acid floor
@@ -32,8 +32,34 @@ public class NetroStatuses {
             damage = 0.6f;
         }};
 
+        stasis = new StatusEffect("stasis"){{
+            color = Color.valueOf("ffff00");
+            speedMultiplier = 0f;
+            dragMultiplier = 999f;
+            disarm = true;
+        }};
+
+        signalLoss = new StatusEffect("signal-loss"){{
+            color = Color.valueOf("994444");
+            speedMultiplier = 0f;
+            dragMultiplier = 0f;
+            buildSpeedMultiplier = 0f;
+            disarm = true;
+        }};
+
+        armorBreak = new StatusEffect("armor-break"){{
+            healthMultiplier = 0.5f;
+        }};
+
+        frostBurn = new StatusEffect("frostburn"){{
+            color = Color.valueOf("5555ff");
+            effect = Fx.freezing;
+            speedMultiplier = 0.7f;
+            damage = 0.8f;
+        }};
+
         shock = new StatusEffect("shock"){{ // Tesla hit status
-            speedMultiplier = 0.1f;
+            speedMultiplier = 0.33f;
         }};
 
         buildSuppress = new StatusEffect("build-suppress"){{ // When boss is alive, applied by world processors on any unit that can build
@@ -54,7 +80,7 @@ public class NetroStatuses {
             reloadMultiplier = 0.8f;
         }};
 
-        // Since the campaign will have its own unique bosses, the buff is useless
+        // Since campaign will have its own unique bosses, these buffs are useless
         StatusEffects.boss.healthMultiplier = 1;
         StatusEffects.boss.damageMultiplier = 1;
     }
