@@ -1,6 +1,7 @@
 package netro.content;
 
 import mindustry.game.*;
+@SuppressWarnings("SpellCheckingInspection")
 
 public class NetroLoadouts {
     public static Schematic

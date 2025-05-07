@@ -7,7 +7,7 @@ import mindustry.type.*;
 public class NetroLiquids {
 
     public static Liquid
-        cleanWater, phomaxite, lava, neutronium;
+        cleanWater, phomaxite, lava;
 
     public static void load(){
         cleanWater = new Liquid("clean-water", Color.valueOf("7a8cdc")){{ //TODO recolor
@@ -15,17 +15,17 @@ public class NetroLiquids {
             temperature = 0.4f;
             heatCapacity = 0.4f;
             barColor = Color.valueOf("7a8cdc");
-            effect = StatusEffects.wet; //TODO new status maybe?
+            effect = StatusEffects.wet;
             capPuddles = false;
         }};
 
         phomaxite = new CellLiquid("phomaxite", Color.valueOf("4dae58")){{
             viscosity = 0.9f;
-            heatCapacity = 0.1f;
-            temperature = 0.55f;
-            flammability = 2f;
+            heatCapacity = 0.3f;
+            temperature = 0.36f;
+            flammability = 0f;
             incinerable = false;
-            moveThroughBlocks = true;
+            moveThroughBlocks = false;
             coolant = false;
             barColor = Color.valueOf("4dae58");
             effect = NetroStatuses.corrosion;
@@ -43,14 +43,6 @@ public class NetroLiquids {
             barColor = Color.valueOf("de9458");
             effect = NetroStatuses.lavaMelting;
             capPuddles = false;
-        }};
-
-        neutronium = new Liquid("neutronium", Color.valueOf("ffa8af")){{
-            gas = true;
-            temperature = 0.5f;
-            viscosity = 0f;
-            heatCapacity = 0f;
-            incinerable = false;
         }};
     }
 }

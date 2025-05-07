@@ -13,10 +13,10 @@ import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
-
 import static mindustry.Vars.*;
+@SuppressWarnings("SpellCheckingInspection")
 
-public class NetroPlanetGenerator extends PlanetGenerator{
+public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
     public float heightScl = 0.9f, octaves = 8, persistence = 0.7f, heightPow = 3f, heightMult = 1.6f;
 
     //TODO inline/remove
@@ -27,7 +27,7 @@ public class NetroPlanetGenerator extends PlanetGenerator{
     public static float crystalScl = 0.9f, crystalMag = 0.3f;
     public static float airThresh = 0.13f, airScl = 14;
 
-    Block[] terrain = {NetroBlocks.grassFloor, NetroBlocks.triniteFloor};
+    Block[] terrain = {NetroBlocks.grassFloor, NetroBlocks.gatrideFloor};
 
     {
         baseSeed = 0;
@@ -74,7 +74,7 @@ public class NetroPlanetGenerator extends PlanetGenerator{
         Block result = terrain[Mathf.clamp((int)(height * terrain.length), 0, terrain.length - 1)];
 
         if(ice < 0.3 + Math.abs(Ridged.noise3d(seed + crystalSeed, position.x + 4f, position.y + 8f, position.z + 1f, crystalOct, crystalScl)) * crystalMag){
-            return NetroBlocks.triniteFloor;
+            return NetroBlocks.gatrideFloor;
         }
 
         if(ice < 0.6){
@@ -87,11 +87,11 @@ public class NetroPlanetGenerator extends PlanetGenerator{
 
         if(ice < redThresh - noArkThresh && Ridged.noise3d(seed + arkSeed, position.x + 2f, position.y + 8f, position.z + 1f, arkOct, arkScl) > arkThresh){
             //TODO arkyic in middle
-            result = NetroBlocks.triniteFloor;
+            result = NetroBlocks.gatrideFloor;
         }
 
         if(ice > redThresh){
-            result = NetroBlocks.triniteFloor;
+            result = NetroBlocks.gatrideFloor;
         }else if(ice > redThresh - 0.4f){
             result = NetroBlocks.grassFloor;
         }
@@ -103,9 +103,9 @@ public class NetroPlanetGenerator extends PlanetGenerator{
     public void genTile(Vec3 position, TileGen tile){
         tile.floor = getBlock(position);
 
-        // if(tile.floor == NetroBlocks.triniteFloor && rand.chance(0.01)){
-        //     tile.floor = NetroBlocks.triniteCrystal;
-        // }
+        if(tile.floor == NetroBlocks.gatrideFloor && rand.chance(0.01)){
+            tile.floor = NetroBlocks.gatrideCrystal;
+        }
 
         tile.block = tile.floor.asFloor().wall;
 
@@ -147,8 +147,8 @@ public class NetroPlanetGenerator extends PlanetGenerator{
         cells(4);
 
         pass((x, y) -> {
-            if(floor == NetroBlocks.triniteFloor && noise(x, y, 3, 0.4f, 13f, 1f) > 0.59f){
-                block = NetroBlocks.triniteWall;
+            if(floor == NetroBlocks.gatrideFloor && noise(x, y, 3, 0.4f, 13f, 1f) > 0.59f){
+                block = NetroBlocks.gatrideWall;
             }
         });
 
@@ -260,8 +260,8 @@ public class NetroPlanetGenerator extends PlanetGenerator{
                     ore = NetroBlocks.oreDionite;
                 }
 
-                if(noise(x + 999, y + 600 - x, 4, 0.63f, 45f, 1f) < 0.27f && floor == NetroBlocks.triniteFloor){
-                    ore = NetroBlocks.oreTrinite;
+                if(noise(x + 999, y + 600 - x, 4, 0.63f, 45f, 1f) < 0.27f && floor == NetroBlocks.gatrideFloor){
+                    ore = NetroBlocks.oreGatride;
                 }
 
             }
@@ -270,9 +270,9 @@ public class NetroPlanetGenerator extends PlanetGenerator{
                 floor = Blocks.crystalFloor;
             }
 
-            if(block == Blocks.air && (floor == NetroBlocks.triniteFloor) && rand.chance(0.09) && nearWall(x, y)
-                    && !near(x, y, 4, NetroBlocks.triniteCrystal)){
-                block = floor == NetroBlocks.triniteFloor ? NetroBlocks.triniteCrystal : Blocks.crystalCluster;
+            if(block == Blocks.air && (floor == NetroBlocks.gatrideFloor) && rand.chance(0.09) && nearWall(x, y)
+                    && !near(x, y, 4, NetroBlocks.gatrideCrystal)){
+                block = floor == NetroBlocks.gatrideFloor ? NetroBlocks.gatrideCrystal : Blocks.crystalCluster;
                 ore = Blocks.air;
             }
 
@@ -305,12 +305,12 @@ public class NetroPlanetGenerator extends PlanetGenerator{
         outer:
         for(Tile tile : tiles){
             var floor = tile.floor();
-            if((floor == NetroBlocks.triniteFloor) && rand.chance(0.002)){
+            if((floor == NetroBlocks.gatrideFloor) && rand.chance(0.002)){
                 int radius = 2;
                 for(int x = -radius; x <= radius; x++){
                     for(int y = -radius; y <= radius; y++){
                         Tile other = tiles.get(x + tile.x, y + tile.y);
-                        if(other == null || (other.floor() != NetroBlocks.triniteFloor) || other.block().solid){
+                        if(other == null || (other.floor() != NetroBlocks.gatrideFloor) || other.block().solid){
                             continue outer;
                         }
                     }
@@ -319,7 +319,7 @@ public class NetroPlanetGenerator extends PlanetGenerator{
                 ventCount ++;
                 for(var pos : SteamVent.offsets){
                     Tile other = tiles.get(pos.x + tile.x + 1, pos.y + tile.y + 1);
-                    other.setFloor(NetroBlocks.triniteVent.asFloor());
+                    other.setFloor(NetroBlocks.gatrideVent.asFloor());
                 }
             }
         }

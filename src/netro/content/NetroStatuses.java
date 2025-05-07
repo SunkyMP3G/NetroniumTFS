@@ -2,6 +2,7 @@ package netro.content;
 
 import arc.graphics.*;
 import mindustry.content.*;
+import mindustry.entities.effect.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 
@@ -11,10 +12,14 @@ public class NetroStatuses {
     corrosion, weakCorrosion, lavaMelting, shock, stasis, signalLoss, armorBreak, frostBurn, buildSuppress, buildSlowdown, snowy, blizzard;
 
     public static void load(){
-        corrosion = new StatusEffect("corrosion"){{ // When you step on the acid floor
+        // Since campaign will have its own unique bosses, these buffs are useless
+        StatusEffects.boss.healthMultiplier = 1;
+        StatusEffects.boss.damageMultiplier = 1;
+
+        corrosion = new StatusEffect("corrosion"){{ // When you step on phomaxite
             color = Color.valueOf("ffc455");
             damage = 0.4f;
-            effect = Fx.melting;
+            effect = new WrapEffect(Fx.melting, Color.valueOf("ffc455"));
             speedMultiplier = 0.7f;
             healthMultiplier = 0.8f;
         }};
@@ -78,10 +83,7 @@ public class NetroStatuses {
         blizzard = new StatusEffect("blizzard-status"){{ // Blizzard weather status
             speedMultiplier = 0.8f;
             reloadMultiplier = 0.8f;
+            dragMultiplier = 1.2f;
         }};
-
-        // Since campaign will have its own unique bosses, these buffs are useless
-        StatusEffects.boss.healthMultiplier = 1;
-        StatusEffects.boss.damageMultiplier = 1;
     }
 }

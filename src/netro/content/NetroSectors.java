@@ -5,12 +5,15 @@ import mindustry.type.*;
 
 public class NetroSectors {
     public static SectorPreset
-        firstSteps;
+        firstSteps, acidLake;
 
     public static void load(){
         firstSteps = new SectorPreset("first-steps", NetroPlanets.netroniumPlanet, 15){{
             difficulty = 0;
             captureWave = 10;
+        }};
+        acidLake = new SectorPreset("acid-lake", NetroPlanets.netroniumPlanet, 18){{
+            difficulty = 0;
             isLastSector = true;
         }};
     }

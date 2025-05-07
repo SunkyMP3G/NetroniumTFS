@@ -20,7 +20,7 @@ body:
       multiple: false
       options:
         - CU-1
-        - CU-2.beta
+        - CU-2 (and .dev)
     validations:
       required: true
   - type: checkboxes

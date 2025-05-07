@@ -9,14 +9,13 @@ import mindustry.type.*;
 public class NetroTechTree {
     public static void load(){
         var costMultipliers = new ObjectFloatMap<Item>();
-        for(var item : content.items()) costMultipliers.put(item, 0f);
+        for(var item : content.items()) costMultipliers.put(item, 0.1f);
 
-        costMultipliers.put(NetroItems.dionite, 0f);
-        costMultipliers.put(NetroItems.trinite, 0f);
-        costMultipliers.put(NetroItems.steelIngot, 0f);
-        costMultipliers.put(NetroItems.netroCopper, 0f);
+        costMultipliers.put(NetroItems.dionite, 0.1f);
+        costMultipliers.put(NetroItems.gatride, 0.1f);
+        costMultipliers.put(NetroItems.hermite, 0.1f);
 
-        NetroPlanets.netroniumPlanet.techTree = nodeRoot("netronium-tt", NetroBlocks.coreHusk, true, () -> {
+        NetroPlanets.netroniumPlanet.techTree = nodeRoot("Netronium", NetroBlocks.coreHusk, true, () -> {
             node(NetroBlocks.dioniteDrill, () -> {
             });
 
@@ -30,9 +29,9 @@ public class NetroTechTree {
                 });
             });
 
-            node(NetroBlocks.alumPump, () -> {
-                node(NetroBlocks.alumPipe, () -> {
-                    node(NetroBlocks.alumRouter, () -> {
+            node(NetroBlocks.hermitePump, () -> {
+                node(NetroBlocks.hermitePipe, () -> {
+                    node(NetroBlocks.hermiteRouter, () -> {
                     });
                 });
             });
@@ -65,7 +64,13 @@ public class NetroTechTree {
             });
 
             nodeProduce(NetroItems.dionite, () -> {
-                nodeProduce(NetroItems.trinite, () -> {
+                nodeProduce(NetroItems.gatride, () -> {
+                });
+                nodeProduce(NetroItems.netroSand, () -> {
+                    nodeProduce(NetroItems.hermite, () -> {
+                    });
+                    nodeProduce(NetroItems.dust, () -> {
+                    });
                 });
                 nodeProduce(NetroLiquids.cleanWater, () -> {
                     nodeProduce(NetroLiquids.phomaxite, () -> {

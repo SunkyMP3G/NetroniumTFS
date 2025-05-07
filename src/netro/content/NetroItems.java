@@ -6,11 +6,7 @@ import mindustry.type.*;
 public class NetroItems {
     public static Item
     // T1
-        dionite, trinite,
-    // T2
-        netroCopper, steelIngot,
-    // T... (For later)
-        neutroniumGem;
+        dionite, gatride, netroSand, hermite, dust;
 
     public static void load(){
         dionite = new Item("dionite", Color.valueOf("8a73c6")){{
@@ -19,26 +15,25 @@ public class NetroItems {
             buildable = true;
         }};
 
-        trinite = new Item("trinite", Color.valueOf("62bfa9")){{
+        gatride = new Item("gatride", Color.valueOf("62bfa9")){{
             hardness = 2;
-        }};
-
-        netroCopper = new Item("netrocopper", Color.valueOf("d99d73")){{
-            hardness = 4; // Mineable by aluminium drill or better
-            cost = 3f;
+            cost = 2f;
+            flammability = 0.1f;
             buildable = true;
         }};
 
-        steelIngot = new Item("steel-ingot", Color.valueOf("d99d73")){{
-            cost = 5f;
+        netroSand = new Item("netro-sand", Color.valueOf("fac6a2")){{
+            hardness = 2;
             buildable = true;
         }};
 
-        neutroniumGem = new Item("neutronium-gem", Color.valueOf("ffa8af")){{ //TODO rebalance
-            cost = 20f;
+        hermite = new Item("hermite", Color.valueOf("dddddd")){{
+            cost = 6f;
             buildable = true;
-            radioactivity = 3.33f;
-            charge = 1f;
+        }};
+
+        dust = new Item("dust", Color.valueOf("333333")){{ // Byproduct of sand extracting, useless
+            buildable = false;
         }};
     }
 }

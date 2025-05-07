@@ -3,6 +3,7 @@ package netro.content;
 import arc.graphics.*;
 import arc.math.geom.Rect;
 import classes.*;
+import mindustry.Vars;
 import static mindustry.Vars.*;
 import mindustry.content.*;
 import mindustry.entities.abilities.*;
@@ -25,9 +26,6 @@ public class NetroUnits {
 
     //T1
     hope, spark, kamikaze, plasma,
-
-    // Story
-    shardedLeader, shardedSoldier,
 
     // Bosses
     hydra, hydraHead, bomber,
@@ -239,7 +237,7 @@ public class NetroUnits {
             }});
         }};
 
-        kamikaze = new NetroUnitType("kamikaze"){{ // Kamikaze
+        kamikaze = new NetroUnitType("kamikaze"){{ // Straight from Japan
             hitSize = 8f;
             health = 25f;
             armor = 0f;
@@ -247,6 +245,7 @@ public class NetroUnits {
             range = 40f;
             drag = accel = 0.06f;
             flying = true;
+            crashDamageMultiplier = 1.2f;
             this.constructor = UnitEntity::create;
             itemCapacity = 0;
             researchCostMultiplier = 0f;
@@ -314,34 +313,6 @@ public class NetroUnits {
 
             abilities.add(new ForceFieldAbility(30f, 0.5f, 300f, 60f * 10, 18, 0f){});
         }};
-
-        // Story
-        shardedLeader = new NetroUnitType("sharded-leader"){{
-            hitSize = 8f;
-            health = 9999;
-            armor = 9999f;
-            speed = 1f;
-            flying = false;
-            this.constructor = MechUnit::create;
-            itemCapacity = 0;
-
-            targetable = false;
-            hittable = false;
-        }};
-
-        shardedSoldier = new NetroUnitType("sharded-soldier"){{
-            hitSize = 8f;
-            health = 9999;
-            armor = 9999f;
-            speed = 1f;
-            flying = false;
-            this.constructor = MechUnit::create;
-            itemCapacity = 0;
-
-            targetable = false;
-            hittable = false;
-        }};
-
 
         // Bosses
         hydra = new NetroBossUnit("hydra"){{ // Absolutely not a market
@@ -516,23 +487,43 @@ public class NetroUnits {
 
         // Other
         train = new NeoplasmUnitType("train"){{ // THOMAS
-            health = 20000;
-            armor = 20000f;
+            health = 66666;
+            armor = 66666f;
             targetable = killable = false;
             hitSize = 40f;
-            crushDamage = 99999f;
+            crushDamage = 66666f;
             speed = 5f;
-            mechSideSway = 2;
             stepShake = 6f;
-            loopSound = Sounds.missileTrail;
+            loopSound = Vars.tree.loadSound("thomas");
             loopSoundVolume = 0.6f;
             targetAir = false;
+            omniMovement = true;
             canDrown = false;
             segments = 1;
             drawBody = true;
 
             segmentScl = 0f;
             segmentPhase = 0f;
+            weapons.add(new Weapon(""){{
+                reload = 1f;
+                layerOffset = 0.0001f;
+                mirror = false;
+                x = 0;
+                y = 20;
+                shootY = 20f;
+                range =
+                recoil = 0f;
+                rotate = true;
+                rotateSpeed = 400f;
+                shootCone = 2f;
+                shootSound = Sounds.none;
+                bullet = new LaserBulletType(66666f){{
+                    length = 40f;
+                    pierce = true;
+                    hitEffect = new MultiEffect(Fx.titanExplosion, Fx.titanSmoke);
+                    colors = new Color[]{Pal.neoplasm1.cpy().a(0.4f), Pal.neoplasm1, Color.white};
+                }};
+            }});
 
             this.constructor = CrawlUnit::create;
             drawCell = false;
@@ -540,7 +531,7 @@ public class NetroUnits {
             abilities.add(new MoveEffectAbility(){{
                 effect = Fx.missileTrailSmoke;
                 rotation = 180f;
-                y = -50f;
+                y = -64f;
                 color = Color.grays(0.6f).lerp(Pal.redLight, 0.5f).a(0.4f);
                 interval = 7f;
             }});
