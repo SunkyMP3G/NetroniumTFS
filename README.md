@@ -12,6 +12,6 @@
 Spoilers, lore library, new releases, and chat! 
 
 ---
-
-## Used music
+### [Netronium OST mod](https://github.com/SunkyMP3G/NetroniumMusic)
+## Other used music
 "Thomas the Tank Engine main theme (Bass Boosted)" (thomas.ogg)
