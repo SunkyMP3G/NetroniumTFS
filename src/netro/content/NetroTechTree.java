@@ -1,51 +1,38 @@
 package netro.content;
 
 import arc.struct.*;
-import static mindustry.Vars.*;
 import static mindustry.content.TechTree.*;
-import mindustry.type.*;
+import mindustry.game.*;
 @SuppressWarnings("all")
 
 public class NetroTechTree {
     public static void load(){
-        var costMultipliers = new ObjectFloatMap<Item>();
-        for(var item : content.items()) costMultipliers.put(item, 0.1f);
 
-        costMultipliers.put(NetroItems.dionite, 0.1f);
-        costMultipliers.put(NetroItems.gatride, 0.1f);
-        costMultipliers.put(NetroItems.hermite, 0.1f);
-
-        NetroPlanets.netroniumPlanet.techTree = nodeRoot("Netronium", NetroBlocks.coreHusk, true, () -> {
-            node(NetroBlocks.dioniteDrill, () -> {
+        NetroPlanets.netroniumPlanet.techTree = nodeRoot("@planet.netroniummod-netronium.name", NetroBlocks.coreHusk, true, () -> {
+            node(NetroBlocks.dioniteDrill, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
             });
 
-            node(NetroBlocks.dioniteNode, () -> {
+            node(NetroBlocks.dioniteNode, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
             });
 
-            node(NetroBlocks.dioniteConveyor, () -> {
+            node(NetroBlocks.sandFurnace, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
+            });
+
+            node(NetroBlocks.dioniteConveyor, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
                 node(NetroBlocks.dioniteRouter, () -> {
                     node(NetroBlocks.dioniteUndConveyor, () -> {
                     });
                 });
             });
 
-            node(NetroBlocks.hermitePump, () -> {
+            node(NetroBlocks.hermitePump, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
                 node(NetroBlocks.hermitePipe, () -> {
                     node(NetroBlocks.hermiteRouter, () -> {
                     });
                 });
             });
 
-            node(NetroBlocks.netroProcessor, () -> {
-                node(NetroBlocks.netroSwitch, () -> {
-                });
-                node(NetroBlocks.netroMessage, () -> {
-                });
-                node(NetroBlocks.netroCell, () -> {
-                });
-            });
-
-            node(NetroBlocks.origin, () -> {
+            node(NetroBlocks.origin, Seq.with(new Objectives.Research(NetroBlocks.dioniteDrill), new Objectives.Research(NetroBlocks.dioniteConveyor), new Objectives.Research(NetroBlocks.dioniteNode)), () -> {
                 node(NetroBlocks.tesla, () -> {
                 });
                 node(NetroBlocks.dioniteWall, () -> {
@@ -56,11 +43,18 @@ public class NetroTechTree {
                 });
             });
 
-            node(NetroBlocks.dioniteAssembler, () -> {
+            node(NetroBlocks.dioniteAssembler, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
                 node(NetroUnits.spark);
                 node(NetroUnits.hope);
                 node(NetroUnits.kamikaze);
                 node(NetroUnits.plasma);
+            });
+
+            node(NetroSectors.firstSteps, () -> {
+                node(NetroSectors.theLake, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps)), () -> {
+                    nodeProduce(NetroItems.soon, Seq.with(new Objectives.SectorComplete(NetroSectors.theLake)), () -> {
+                    });
+                });
             });
 
             nodeProduce(NetroItems.dionite, () -> {
@@ -73,10 +67,6 @@ public class NetroTechTree {
                     });
                 });
                 nodeProduce(NetroLiquids.cleanWater, () -> {
-                    nodeProduce(NetroLiquids.phomaxite, () -> {
-                    });
-                    nodeProduce(NetroLiquids.lava, () -> {
-                    });
                 });
             });
         });

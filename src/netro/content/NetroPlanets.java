@@ -24,7 +24,7 @@ public class NetroPlanets {
 
             defaultCore = NetroBlocks.coreHusk;
             clearSectorOnLose = true;
-            allowLaunchToNumbered = true;
+            allowLaunchToNumbered = false;
             orbitRadius = 35;
 
             sectorSeed = 0;
@@ -33,7 +33,7 @@ public class NetroPlanets {
                 r.placeRangeCheck = false;
                 r.showSpawns = true;
                 r.coreDestroyClear = true;
-                r.infiniteResources = true;
+                r.lighting = false;
             };
 
             iconColor = Color.valueOf("30d5c8");
@@ -41,6 +41,7 @@ public class NetroPlanets {
             atmosphereRadIn = 0f;
             atmosphereRadOut = 0.3f;
             startSector = 15;
+            updateLighting = false;
             alwaysUnlocked = true;
             landCloudColor = Pal.lancerLaser.cpy().a(0.5f);
         }};

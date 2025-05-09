@@ -127,6 +127,7 @@ public class NetroUnits {
             armor = 3f;
             hitSize = 9f;
             vulnerableWithPayloads = true;
+            hideDatabase = true;
 
             fogRadius = 0f;
             targetable = false;
@@ -168,7 +169,7 @@ public class NetroUnits {
 
         //T1
         hope = new TankUnitType("hope"){{ // Tonk
-            health = 200f;
+            health = 300f;
             hitSize = 13f;
             armor = 2f;
             speed = 0.6f;
@@ -196,7 +197,7 @@ public class NetroUnits {
                 shootCone = 2f;
                 shootSound = Sounds.laser;
                 heatColor = Color.valueOf("f9350f");
-                bullet = new LaserBulletType(30f){{
+                bullet = new LaserBulletType(27f){{
                     sideAngle = 12f;
                     sideWidth = 1f;
                     sideLength = 10f;
@@ -218,6 +219,7 @@ public class NetroUnits {
             this.constructor = UnitEntity::create;
             itemCapacity = 0;
             researchCostMultiplier = 0f;
+            crashDamageMultiplier = 0.1f; // Not a kamikaze
 
             weapons.add(new Weapon("netroniummod-spark-weapon") {{
                 reload = 20f;
@@ -245,7 +247,6 @@ public class NetroUnits {
             range = 40f;
             drag = accel = 0.06f;
             flying = true;
-            crashDamageMultiplier = 1.2f;
             this.constructor = UnitEntity::create;
             itemCapacity = 0;
             researchCostMultiplier = 0f;
@@ -495,12 +496,13 @@ public class NetroUnits {
             speed = 5f;
             stepShake = 6f;
             loopSound = Vars.tree.loadSound("thomas");
-            loopSoundVolume = 0.6f;
+            loopSoundVolume = 0.2f; // Too loud
             targetAir = false;
             omniMovement = true;
             canDrown = false;
             segments = 1;
             drawBody = true;
+            hideDatabase = true;
 
             segmentScl = 0f;
             segmentPhase = 0f;

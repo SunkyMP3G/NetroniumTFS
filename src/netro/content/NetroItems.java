@@ -6,7 +6,7 @@ import mindustry.type.*;
 public class NetroItems {
     public static Item
     // T1
-        dionite, gatride, netroSand, hermite, dust;
+        dionite, gatride, netroSand, hermite, dust, soon;
 
     public static void load(){
         dionite = new Item("dionite", Color.valueOf("8a73c6")){{
@@ -24,7 +24,7 @@ public class NetroItems {
 
         netroSand = new Item("netro-sand", Color.valueOf("fac6a2")){{
             hardness = 2;
-            buildable = true;
+            buildable = false;
         }};
 
         hermite = new Item("hermite", Color.valueOf("dddddd")){{
@@ -34,6 +34,12 @@ public class NetroItems {
 
         dust = new Item("dust", Color.valueOf("333333")){{ // Byproduct of sand extracting, useless
             buildable = false;
+        }};
+
+        soon = new Item("soon", Color.valueOf("000000")){{ // Soon™
+            buildable = false;
+            alwaysUnlocked = true;
+            hideDatabase = true;
         }};
     }
 }

@@ -17,7 +17,7 @@ public class Netronium extends Mod{
         NetroWeathers.load();
         NetroLoadouts.load();
         NetroPlanets.load();
-        // NetroSectors.load();
+        NetroSectors.load();
         NetroTechTree.load();
         Log.info("Netronium mod (CU-2) is loaded successfully!");
     }

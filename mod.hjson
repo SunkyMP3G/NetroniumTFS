@@ -1,15 +1,17 @@
 name: "netroniummod"
 repo: "sunkymp3g/Netronium-TFS"
 minGameVersion: 147
-version: "CU-2.dev"
+version: "CU-2"
 main: "netro.Netronium"
 
 displayName: "Netronium: The Final Showdown"
 author: "[orange[]]Sunky.MP3G"
-subtitle: "Version: CU-2.dev"
+subtitle: "Version: CU-2"
 description:
 
   '''
+  Content Update 2 released!
+  
   A planet, surrounded by a dome, awaits you...
   It's a beta version, it doesn't contain much things and has some bad sprites.
   Our Discord server's link is on GitHub page, go check it!

@@ -175,7 +175,6 @@ public class NetroBlocks {
         // Cores
         coreHusk = new NetroCoreBlock("core-husk"){{
             requirements(Category.effect, with(NetroItems.dionite, 700));
-
             isFirstTier = true;
             unitType = NetroUnits.unite;
             health = 1400;
@@ -194,7 +193,6 @@ public class NetroBlocks {
 
         coreDome = new NetroCoreBlock("core-dome"){{
             requirements(Category.effect, with(NetroItems.hermite, 9999));
-
             unitType = NetroUnits.verge;
             health = 3000;
             armor = 3f;
@@ -204,6 +202,7 @@ public class NetroBlocks {
             powerProduction = 450/energy;
             squareSprite = false;
             incinerateNonBuildable = true;
+            hideDatabase = true;
 
             unitCapModifier = 16;
         }};
@@ -212,6 +211,7 @@ public class NetroBlocks {
         // Transport
         dioniteConveyor = new Conveyor("dionite-conveyor"){{
             requirements(Category.distribution, with(NetroItems.dionite, 1));
+            researchCost = with(NetroItems.dionite, 5);
             health = 10;
             speed = 0.03f;
             displayedSpeed = 4.2f;
@@ -220,12 +220,14 @@ public class NetroBlocks {
 
         dioniteRouter = new Router("dionite-router"){{
             requirements(Category.distribution, with(NetroItems.dionite, 3));
+            researchCost = with(NetroItems.dionite, 8);
             health = 20;
             underBullets = true;
         }};
 
         dioniteUndConveyor = new DuctBridge("dionite-und-conveyor"){{
             requirements(Category.distribution, with(NetroItems.dionite, 20));
+            researchCost = with(NetroItems.dionite, 40);
             health = 30;
             range = 4;
             speed = 0.03f;
@@ -235,20 +237,24 @@ public class NetroBlocks {
 
         //Drills
         dioniteDrill = new Drill("dionite-drill"){{
-            requirements(Category.production, with(NetroItems.dionite, 30));
+            requirements(Category.production, with(NetroItems.dionite, 10));
+            researchCost = with(NetroItems.dionite, 20);
             consumePower(1/energy);
-            drillTime = 300f;
+            drillTime = 380f;
             tier = 2;
             health = 100;
             size = 2;
             squareSprite = false;
             consumeLiquid(NetroLiquids.cleanWater, 2f/fluid).boost();
+            liquidBoostIntensity = 1.2f;
+            liquidCapacity = 10f/fluid;
         }};
 
 
         //Liquids
         hermitePump = new AttributeCrafter("hermite-pump"){{
-            requirements(Category.production, with(NetroItems.dionite, 100, NetroItems.hermite, 50));
+            requirements(Category.production, with(NetroItems.dionite, 100, NetroItems.hermite, 20));
+            researchCost = with(NetroItems.dionite, 200, NetroItems.hermite, 20);
             attribute = Attribute.steam;
             group = BlockGroup.liquids;
             minEfficiency = 9f - 0.0001f;
@@ -271,12 +277,14 @@ public class NetroBlocks {
 
         hermitePipe = new Conduit("hermite-pipe"){{
             requirements(Category.liquid, with(NetroItems.dionite, 1, NetroItems.hermite, 1));
+            researchCost = with(NetroItems.dionite, 100, NetroItems.hermite, 10);
             underBullets = true;
             health = 10;
         }};
 
         hermiteRouter = new LiquidRouter("hermite-router"){{
             requirements(Category.liquid, with(NetroItems.dionite, 3, NetroItems.hermite, 3));
+            researchCost = with(NetroItems.dionite, 100, NetroItems.hermite, 10);
             health = 20;
             liquidCapacity = 18f;
             underBullets = true;
@@ -287,10 +295,11 @@ public class NetroBlocks {
         // Production
         sandFurnace = new Separator("sand-furnace"){{
             requirements(Category.crafting, with(NetroItems.dionite, 90, NetroItems.gatride, 40));
+            researchCost = with(NetroItems.dionite, 110, NetroItems.gatride, 30);
             health = 200;
             results = with(
-                NetroItems.hermite, 45,
-                NetroItems.dust, 55
+                NetroItems.hermite, 90,
+                NetroItems.dust, 10
             );
             craftTime = 180f;
             size = 2;
@@ -310,7 +319,8 @@ public class NetroBlocks {
 
         // Energy
         dioniteNode = new BeamNode("dionite-node"){{
-            requirements(Category.power, with(NetroItems.dionite, 6));
+            requirements(Category.power, with(NetroItems.dionite, 5));
+            researchCost = with(NetroItems.dionite, 10);
             consumesPower = outputsPower = true;
             health = 40;
             range = 5;
@@ -320,21 +330,22 @@ public class NetroBlocks {
 
         // Turrets
         origin = new ItemTurret("origin"){{
-            requirements(Category.turret, with(NetroItems.dionite, 70, NetroItems.gatride, 30));
+            requirements(Category.turret, with(NetroItems.dionite, 50, NetroItems.gatride, 25));
+            researchCost = with(NetroItems.dionite, 70, NetroItems.gatride, 30);
             ammo(
-                NetroItems.dionite, new BasicBulletType(5f, 17){{
+                NetroItems.dionite, new BasicBulletType(5f, 15){{
                     width = 8f;
                     height = 10f;
                     lifetime = 23f;
                     buildingDamageMultiplier = 0.01f;
                 }},
-                NetroItems.hermite, new BasicBulletType(5f, 14){{
+                NetroItems.hermite, new BasicBulletType(5f, 12){{
                     width = 8f;
                     height = 10f;
                     lifetime = 23f;
                     buildingDamageMultiplier = 0.01f;
                     fragBullets = 3;
-                    fragBullet = new BasicBulletType(5f, 4){{
+                    fragBullet = new BasicBulletType(5f, 3){{
                         width = 4f;
                         height = 5f;
                         lifetime = 5f;
@@ -360,15 +371,15 @@ public class NetroBlocks {
         }};
 
         tesla = new PowerTurret("tesla"){{
-            requirements(Category.turret, with(NetroItems.dionite, 150, NetroItems.gatride, 100));
+            requirements(Category.turret, with(NetroItems.dionite, 100, NetroItems.gatride, 80, NetroItems.hermite, 20));
+            researchCost = with(NetroItems.dionite, 400, NetroItems.gatride, 300, NetroItems.hermite, 40);
             shootType = new LightningBulletType(){{
-                damage = 10;
+                damage = 7;
                 lightningLength = 20;
                 collidesAir = false;
                 ammoMultiplier = 1f;
                 consumePower(18/energy);
                 shootX = shootY = 0f;
-
                 lightningType = new BulletType(0.0001f, 0f){{
                     lifetime = Fx.lightning.lifetime;
                     hitEffect = Fx.hitLancer;
@@ -457,18 +468,21 @@ public class NetroBlocks {
         // Walls
         dioniteWall = new Wall("dionite-wall"){{
             requirements(Category.defense, with(NetroItems.dionite, 6));
+            researchCost = with(NetroItems.dionite, 30);
             health = 100;
             size = 1;
         }};
 
         largeDioniteWall = new Wall("large-dionite-wall"){{
             requirements(Category.defense, with(NetroItems.dionite, 24));
+            researchCost = with(NetroItems.dionite, 120);
             health = 400;
             size = 2;
         }};
 
         dioniteDoor = new AutoDoor("dionite-door"){{
-            requirements(Category.defense, with(NetroItems.dionite, 60, NetroItems.gatride, 50));
+            requirements(Category.defense, with(NetroItems.dionite, 60, NetroItems.gatride, 50, NetroItems.hermite, 10));
+            researchCost = with(NetroItems.dionite, 200, NetroItems.gatride, 150, NetroItems.hermite, 30);
             health = 500;
             armor = 1f;
             size = 2;
@@ -477,13 +491,14 @@ public class NetroBlocks {
 
         // Unit crafters
         dioniteAssembler = new UnitFactory("dionite-assembler"){{
-            requirements(Category.units, with(NetroItems.dionite, 170, NetroItems.gatride, 150));
+            requirements(Category.units, with(NetroItems.dionite, 100, NetroItems.gatride, 70, NetroItems.hermite, 10));
+            researchCost = with(NetroItems.dionite, 200, NetroItems.gatride, 120, NetroItems.hermite, 20);
             health = 200;
             plans = Seq.with(
-                    new UnitPlan(NetroUnits.hope, 60f * 40, with(NetroItems.dionite, 80, NetroItems.gatride, 50)),
+                    new UnitPlan(NetroUnits.hope, 60f * 40, with(NetroItems.dionite, 70, NetroItems.gatride, 50)),
                     new UnitPlan(NetroUnits.spark, 60f * 25, with(NetroItems.dionite, 50, NetroItems.gatride, 30)),
                     new UnitPlan(NetroUnits.kamikaze, 60f * 15, with(NetroItems.dionite, 30, NetroItems.gatride, 50)),
-                    new UnitPlan(NetroUnits.plasma, 60f * 60, with(NetroItems.dionite, 120, NetroItems.gatride, 50, NetroItems.hermite, 20))
+                    new UnitPlan(NetroUnits.plasma, 60f * 60, with(NetroItems.dionite, 120, NetroItems.gatride, 50, NetroItems.hermite, 10))
             );
             size = 3;
             consumePower(24/energy);
@@ -491,26 +506,34 @@ public class NetroBlocks {
 
         // Logic
         netroProcessor = new LogicBlock("netro-processor"){{
-            requirements(Category.logic, with(NetroItems.hermite, 90, NetroItems.dionite, 140, NetroItems.hermite, 60));
+            requirements(Category.logic, with(NetroItems.gatride, 90, NetroItems.dionite, 140, NetroItems.hermite, 25));
+            researchCost = with(NetroItems.dionite, 400, NetroItems.gatride, 200, NetroItems.hermite, 60);
             health = 80;
+            hideDatabase = true;
 
             instructionsPerTick = 2;
             range = 8*8;
         }};
 
         netroMessage = new MessageBlock("netro-message"){{
-            requirements(Category.logic, with(NetroItems.hermite, 30, NetroItems.dionite, 50));
+            requirements(Category.logic, with(NetroItems.gatride, 30, NetroItems.dionite, 50, NetroItems.hermite, 3));
+            researchCost = with(NetroItems.dionite, 100, NetroItems.gatride, 100, NetroItems.hermite, 20);
             health = 40;
+            hideDatabase = true;
         }};
 
         netroSwitch = new SwitchBlock("netro-switch"){{
-            requirements(Category.logic, with(NetroItems.hermite, 15, NetroItems.dionite, 30));
+            requirements(Category.logic, with(NetroItems.gatride, 15, NetroItems.dionite, 30, NetroItems.hermite, 3));
+            researchCost = with(NetroItems.dionite, 100, NetroItems.gatride, 100, NetroItems.hermite, 20);
             health = 40;
+            hideDatabase = true;
         }};
 
         netroCell = new MemoryBlock("netro-cell"){{
-            requirements(Category.logic, with(NetroItems.hermite, 25, NetroItems.dionite, 50));
+            requirements(Category.logic, with(NetroItems.gatride, 25, NetroItems.dionite, 50, NetroItems.hermite, 5));
+            researchCost = with(NetroItems.dionite, 100, NetroItems.gatride, 100, NetroItems.hermite, 20);
             health = 100;
+            hideDatabase = true;
 
             memoryCapacity = 8;
         }};
