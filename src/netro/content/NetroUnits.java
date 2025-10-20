@@ -4,7 +4,6 @@ import arc.graphics.*;
 import arc.math.geom.Rect;
 import classes.*;
 import mindustry.Vars;
-import static mindustry.Vars.*;
 import mindustry.content.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
@@ -16,7 +15,9 @@ import mindustry.type.*;
 import mindustry.ai.types.*;
 import mindustry.type.unit.*;
 import mindustry.type.weapons.*;
-import mindustry.world.meta.BlockFlag;
+import mindustry.world.meta.*;
+
+import static mindustry.Vars.*;
 
 public class NetroUnits {
     public static UnitType
@@ -36,7 +37,7 @@ public class NetroUnits {
     public static void load() {
 
         //Core units
-        unite = new NetroUnitType("unite"){{ // If only the mod was in Soviet Union
+        unite = new NetroUnitType("unite"){{ // Советский
             coreUnitDock = true;
             controller = u -> new BuilderAI(true, 500);
             isEnemy = false;
@@ -101,7 +102,7 @@ public class NetroUnits {
             }});
         }};
 
-        verge = new NetroUnitType("verge"){{
+        verge = new NetroUnitType("verge"){{ // WIP
             coreUnitDock = true;
             controller = u -> new BuilderAI(true, 500);
             isEnemy = false;
@@ -316,72 +317,7 @@ public class NetroUnits {
         }};
 
         // Bosses
-        hydra = new NetroBossUnit("hydra"){{ // Absolutely not a market
-            health = 7500;
-            armor = 3f;
-            speed = 0.6f;
-            drag = 0.08f;
-            rotateSpeed = 2.5f;
-            engineSize = 4f;
-            hitSize = 24f;
-            flying = true;
-            range = 80f;
-            this.constructor = UnitEntity::create;
-
-            weapons.add(new Weapon(){{
-                shootSound = Sounds.shockBlast;
-                x = 0f;
-                y = -2f;
-                shootY = 0f;
-                reload = 140f;
-                mirror = false;
-                shake = 3f;
-
-                bullet = new BasicBulletType(){{
-                    shoot = new ShootHelix(){{
-                        mag = 1f;
-                        scl = 5f;
-                    }};
-
-                    shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
-                        colorTo = Pal.sapBulletBack;
-                        sizeTo = 26f;
-                        lifetime = 14f;
-                        strokeFrom = 4f;
-                    }});
-                    smokeEffect = Fx.shootSmokeTitan;
-                    hitColor = Pal.sapBullet;
-                    despawnSound = Sounds.spark;
-
-                    sprite = "large-orb";
-                    trailEffect = Fx.missileTrail;
-                    trailInterval = 3f;
-                    trailParam = 4f;
-                    speed = 2f;
-                    damage = 100f;
-                    lifetime = 30f;
-                    width = height = 10f;
-                    backColor = Pal.sapBulletBack;
-                    frontColor = Pal.sapBullet;
-                    shrinkX = shrinkY = 0f;
-                    trailColor = Pal.sapBulletBack;
-                    trailLength = 12;
-                    trailWidth = 2.2f;
-                    despawnEffect = hitEffect = new ExplosionEffect(){{
-                        waveColor = Pal.sapBullet;
-                        smokeColor = Color.gray;
-                        sparkColor = Pal.sap;
-                        waveStroke = 4f;
-                        waveRad = 40f;
-                    }};
-                }};
-            }});
-
-            // TODO Fix the crash
-            // abilities.add(new SpawnDeathAbility(NetroUnits.hydraHead, 2, 8f));
-        }};
-
-        hydraHead = new NetroBossUnit("hydra-head"){{
+        hydraHead = new NetroBossUnit("hydra-head"){{ // The head of "just a unit"
             health = 3750;
             armor = 3f;
             speed = 1f;
@@ -423,7 +359,7 @@ public class NetroUnits {
                     trailParam = 4f;
                     speed = 2f;
                     damage = 100f;
-                    lifetime = 30f;
+                    lifetime = 60f;
                     width = height = 10f;
                     backColor = Pal.sapBulletBack;
                     frontColor = Pal.sapBullet;
@@ -443,8 +379,72 @@ public class NetroUnits {
             }});
         }};
 
+        hydra = new NetroBossUnit("hydra"){{ // Black mar- oh I mean just a unit
+            health = 7500;
+            armor = 3f;
+            speed = 0.6f;
+            drag = 0.08f;
+            rotateSpeed = 2.5f;
+            engineSize = 4f;
+            hitSize = 24f;
+            flying = true;
+            range = 80f;
+            this.constructor = UnitEntity::create;
+
+            weapons.add(new Weapon(){{
+                shootSound = Sounds.shockBlast;
+                x = 0f;
+                y = -2f;
+                shootY = 0f;
+                reload = 140f;
+                mirror = false;
+                shake = 3f;
+
+                bullet = new BasicBulletType(){{
+                    shoot = new ShootHelix(){{
+                        mag = 1f;
+                        scl = 5f;
+                    }};
+                    shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
+                        colorTo = Pal.sapBulletBack;
+                        sizeTo = 26f;
+                        lifetime = 14f;
+                        strokeFrom = 4f;
+                    }});
+                    smokeEffect = Fx.shootSmokeTitan;
+                    hitColor = Pal.sapBullet;
+                    despawnSound = Sounds.spark;
+
+                    sprite = "large-orb";
+                    trailEffect = Fx.missileTrail;
+                    trailInterval = 3f;
+                    trailParam = 4f;
+                    speed = 2f;
+                    damage = 100f;
+                    lifetime = 120f;
+                    width = height = 10f;
+                    backColor = Pal.sapBulletBack;
+                    frontColor = Pal.sapBullet;
+                    shrinkX = shrinkY = 0f;
+                    trailColor = Pal.sapBulletBack;
+                    trailLength = 12;
+                    trailWidth = 2.2f;
+                    despawnEffect = hitEffect = new ExplosionEffect(){{
+                        waveColor = Pal.sapBullet;
+                        smokeColor = Color.gray;
+                        sparkColor = Pal.sap;
+                        waveStroke = 4f;
+                        waveRad = 40f;
+                    }};
+                }};
+            }});
+
+            // Boss special ability
+            abilities.add(new SpawnDeathAbility(NetroUnits.hydraHead, 2, 8f));
+        }};
+
         bomber = new NetroBossUnit("bomber"){{ // Kamikaze, but OP
-            health = 15000;
+            health = 10000;
             armor = 4f;
             speed = 0.3f;
             drag = 0.04f;
@@ -452,12 +452,16 @@ public class NetroUnits {
             aiController = HugAI::new;
             rotateSpeed = 1f;
             engineSize = 2f;
-            hitSize = 54f;
+            hitSize = 30f;
             crashDamageMultiplier = 9999f; // Boss special ability
-            abilities.add(new ForceFieldAbility(30f, 0.1f, 10000f, 600f * 10, 18, 0f){});
             flying = true;
+            targetAir = false;
             targetFlags = new BlockFlag[]{BlockFlag.core, null};
             this.constructor = UnitEntity::create;
+
+            setEnginesMirror(
+                    new UnitEngine(38 / 4f, -27 / 4f, 2f, 315f)
+            );
 
             weapons.add(new Weapon() {{
                 shootOnDeath = true;
@@ -487,7 +491,7 @@ public class NetroUnits {
 
 
         // Other
-        train = new NeoplasmUnitType("train"){{ // THOMAS
+        train = new NeoplasmUnitType("train"){{ // This is what happens when you let Asgore drive a train
             health = 66666;
             armor = 66666f;
             targetable = killable = false;
@@ -496,7 +500,7 @@ public class NetroUnits {
             speed = 5f;
             stepShake = 6f;
             loopSound = Vars.tree.loadSound("thomas");
-            loopSoundVolume = 0.2f; // Too loud
+            loopSoundVolume = 0.2f; // It's still loud
             targetAir = false;
             omniMovement = true;
             canDrown = false;

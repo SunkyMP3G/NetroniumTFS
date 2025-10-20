@@ -1,13 +1,13 @@
 package classes;
 
-import mindustry.graphics.*;
+import arc.graphics.*;
 import mindustry.type.*;
 import mindustry.world.meta.BlockFlag;
 
 public class NetroBossUnit extends UnitType {
     public NetroBossUnit(String name) {
         super(name);
-        outlineColor = Pal.neoplasmMid;
+        outlineColor = Color.valueOf("310a03");
         crashDamageMultiplier = 5f; // Are bosses heavy? Yes, of course
 
         //Would be too stupid for a boss to drown :D

@@ -15,11 +15,11 @@ public class NetroPlanets {
         netroniumPlanet;
 
     public static void load(){
-        netroniumPlanet = new Planet("netronium", Planets.sun, 1f, 3){{
+        netroniumPlanet = new Planet("netronium", Planets.sun, 1f, 2){{
             generator = new NetroPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 5);
             cloudMeshLoader = () -> new MultiMesh(
-                    new HexSkyMesh(this, 1, 0f, 0.16f, 2, Color.cyan.cpy().lerp(Color.valueOf("30d5c8"), 0.55f).a(0.65f), 0, 1f, 2f, 0.1f)
+                    new HexSkyMesh(this, 1, 0f, 0.16f, 2, Color.cyan.cpy().lerp(Color.valueOf("30d5c8"), 0.55f).a(0.40f), 0, 1f, 2f, 0.1f)
             );
 
             defaultCore = NetroBlocks.coreHusk;

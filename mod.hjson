@@ -1,12 +1,12 @@
 name: "netroniummod"
 repo: "sunkymp3g/Netronium-TFS"
-minGameVersion: 147
-version: "CU-2"
+minGameVersion: 151.1
+version: "CU-2.1"
 main: "netro.Netronium"
 
 displayName: "Netronium: The Final Showdown"
 author: "[orange[]]Sunky.MP3G"
-subtitle: "Version: CU-2"
+subtitle: "Version: CU-3"
 description:
 
   '''

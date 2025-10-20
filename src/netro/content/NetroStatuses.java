@@ -9,10 +9,13 @@ import mindustry.type.*;
 
 public class NetroStatuses {
     public static StatusEffect
-    corrosion, weakCorrosion, lavaMelting, shock, stasis, signalLoss, armorBreak, frostBurn, buildSuppress, buildSlowdown, snowy, blizzard;
+        // Usual statuses
+    corrosion, weakCorrosion, lavaMelting, shock, stasis, signalLoss, armorBreak, frostBurn, buildSuppress, buildSlowdown, snowy, blizzard,
+        // Boss rage
+    bomberRage1, bomberRage2, bomberRage3, bomberRage4;
 
     public static void load(){
-        // Since campaign will have its own unique bosses, these buffs are useless
+        // Since campaign will have its own unique bosses with their own HP and damage, these buffs will only be bad
         StatusEffects.boss.healthMultiplier = 1;
         StatusEffects.boss.damageMultiplier = 1;
 
@@ -84,6 +87,24 @@ public class NetroStatuses {
             speedMultiplier = 0.8f;
             reloadMultiplier = 0.8f;
             dragMultiplier = 1.2f;
+        }};
+
+        // Boss rage
+        // Bomber
+        bomberRage1 = new StatusEffect("bomber-rage1"){{ // 80 seconds after spawn
+            speedMultiplier = 1.8f;
+        }};
+
+        bomberRage2 = new StatusEffect("bomber-rage2"){{ // 120 seconds after spawn
+            speedMultiplier = 2.6f;
+        }};
+
+        bomberRage3 = new StatusEffect("bomber-rage3"){{ // 160 seconds after spawn
+            speedMultiplier = 3.4f;
+        }};
+
+        bomberRage4 = new StatusEffect("bomber-rage4"){{ // 200 seconds after spawn
+            speedMultiplier = 5f;
         }};
     }
 }

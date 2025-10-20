@@ -17,6 +17,7 @@ Events.on(UnitSpawnEvent, event => {
 	const bomberDialog = new BaseDialog(Core.bundle.format("bomber-name"));
 	bomberDialog.addCloseButton();
 	bomberDialog.cont.add(Core.bundle.format("bomber-desc"));
+	Vars.tree.loadMusic("boss-bomber").play();
 	bomberDialog.show();
     }
   }

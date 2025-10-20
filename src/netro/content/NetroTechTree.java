@@ -12,7 +12,9 @@ public class NetroTechTree {
             node(NetroBlocks.dioniteDrill, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
             });
 
-            node(NetroBlocks.dioniteNode, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
+            node(NetroBlocks.dioniteWire, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
+                node(NetroBlocks.dioniteNode, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
+                });
             });
 
             node(NetroBlocks.sandFurnace, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
@@ -28,6 +30,8 @@ public class NetroTechTree {
             node(NetroBlocks.hermitePump, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
                 node(NetroBlocks.hermitePipe, () -> {
                     node(NetroBlocks.hermiteRouter, () -> {
+                    });
+                    node(NetroBlocks.hermiteUndPipe, () -> {
                     });
                 });
             });
@@ -52,7 +56,11 @@ public class NetroTechTree {
 
             node(NetroSectors.firstSteps, () -> {
                 node(NetroSectors.theLake, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps)), () -> {
-                    nodeProduce(NetroItems.soon, Seq.with(new Objectives.SectorComplete(NetroSectors.theLake)), () -> {
+                    //node(NetroSectors.shipyard, Seq.with(new Objectives.SectorComplete(NetroSectors.theLake)), () -> {
+                    //    node(NetroSectors.roverCity, Seq.with(new Objectives.SectorComplete(NetroSectors.shipyard)), () -> {
+                    //    });
+                    //});
+                    node(NetroItems.soon, Seq.with(new Objectives.SectorComplete(NetroSectors.theLake)), () -> {
                     });
                 });
             });
@@ -67,6 +75,14 @@ public class NetroTechTree {
                     });
                 });
                 nodeProduce(NetroLiquids.cleanWater, () -> {
+                });
+            });
+            node(NetroGuideItems.guideIntro, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
+                node(NetroGuideItems.energyGuide, Seq.with(new Objectives.Research(NetroItems.dionite)), () -> {
+                });
+                node(NetroGuideItems.bossGuide, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps)), () -> {
+                    node(NetroGuideItems.bossRageGuide, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps)), () -> {
+                    });
                 });
             });
         });

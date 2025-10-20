@@ -30,22 +30,25 @@ public class NetroBlocks {
     public static Block
 
     // Environment floors
-    grassFloor, stoneFloor, gatrideFloor, sandFloor, iceFloor,
+    grassFloor, stoneFloor, gatrideFloor, sandFloor, retorFloor, iceFloor, metalLines,
 
     // Vents
-    gatrideVent,
+    gatrideVent, retorVent,
 
     // Ores
-    oreDionite, oreGatride,
+    oreDionite, oreGatride, oreTarant,
+
+    // Overlay things
+    invisibleLight,
 
     // Props
-    gatrideCrystal,
+    gatrideCrystal, retorCrystal,
 
     // Environment liquids
     lavaFloor,
 
     // Environment walls
-    grassWall, stoneOreWall, gatrideWall,
+    grassWall, stoneOreWall, gatrideWall, retorWall,
 
     // Cores
     coreHusk, coreDome,
@@ -54,19 +57,19 @@ public class NetroBlocks {
     dioniteConveyor, dioniteRouter, dioniteUndConveyor,
 
     //Drills
-    dioniteDrill,
+    dioniteDrill, hermiteDrill,
 
     // Liquids
-    hermitePump, hermitePipe, hermiteRouter,
+    hermitePump, hermitePipe, hermiteRouter, hermiteUndPipe,
 
     // Production
     sandFurnace,
 
     // Energy
-    dioniteNode,
+    dioniteWire, dioniteNode,
 
     // Turrets
-    origin, tesla, volcano, //Volcano is a turret. Change my mind
+    origin, tesla, minigun, volcano, //Volcano is a turret. Change my mind
 
     // Walls
     dioniteWall, largeDioniteWall, dioniteDoor,
@@ -110,16 +113,30 @@ public class NetroBlocks {
             playerUnmineable = true;
         }};
 
+        retorFloor = new Floor("retor-floor"){{
+            variants = 3;
+            wall = NetroBlocks.retorWall;
+        }};
+
         iceFloor = new Floor("ice-floor"){{
             variants = 3;
             speedMultiplier = 0.9f;
             dragMultiplier = 0.07f;
         }};
 
+        metalLines = new Floor("metal-lines"){{
+            variants = 16;
+        }};
+
 
         // Vents
         gatrideVent = new SteamVent("gatride-vent"){{
             parent = blendGroup = gatrideFloor;
+            attributes.set(Attribute.steam, 1f);
+            variants = 2;
+        }};
+        retorVent = new SteamVent("retor-vent"){{
+            parent = blendGroup = retorFloor;
             attributes.set(Attribute.steam, 1f);
             variants = 2;
         }};
@@ -134,10 +151,25 @@ public class NetroBlocks {
             variants = 2;
         }};
 
+        oreTarant = new OreBlock("ore-tarant", NetroItems.tarant){{
+            variants = 2;
+        }};
+
+        // Overlay things
+        invisibleLight = new OverlayFloor("invisible-light"){{
+            lightColor = Color.valueOf("aaaaaa");
+            lightRadius = 100f;
+        }};
+
 
         // Props
         gatrideCrystal = new TallBlock("gatride-crystals"){{
             variants = 3;
+            clipSize = 128f;
+        }};
+
+        retorCrystal = new TallBlock("retor-crystal"){{
+            variants = 0;
             clipSize = 128f;
         }};
 
@@ -171,6 +203,10 @@ public class NetroBlocks {
             variants = 3;
         }};
 
+        retorWall = new StaticWall("retor-wall"){{
+            variants = 3;
+        }};
+
 
         // Cores
         coreHusk = new NetroCoreBlock("core-husk"){{
@@ -184,7 +220,7 @@ public class NetroBlocks {
             thrusterLength = 12/2f;
             alwaysUnlocked = true;
             requiresCoreZone = true;
-            powerProduction = 200/energy;
+            powerProduction = 250/energy;
             squareSprite = false;
             incinerateNonBuildable = true;
 
@@ -199,7 +235,7 @@ public class NetroBlocks {
             itemCapacity = 2000;
             size = 3;
             thrusterLength = 12/2f;
-            powerProduction = 450/energy;
+            powerProduction = 500/energy;
             squareSprite = false;
             incinerateNonBuildable = true;
             hideDatabase = true;
@@ -213,8 +249,8 @@ public class NetroBlocks {
             requirements(Category.distribution, with(NetroItems.dionite, 1));
             researchCost = with(NetroItems.dionite, 5);
             health = 10;
-            speed = 0.03f;
-            displayedSpeed = 4.2f;
+            speed = 0.04f;
+            displayedSpeed = 6f;
             underBullets = true;
         }};
 
@@ -230,8 +266,9 @@ public class NetroBlocks {
             researchCost = with(NetroItems.dionite, 40);
             health = 30;
             range = 4;
-            speed = 0.03f;
+            speed = 10f;
             underBullets = true;
+            ((Conveyor) dioniteConveyor).bridgeReplacement = this;
         }};
 
 
@@ -240,13 +277,27 @@ public class NetroBlocks {
             requirements(Category.production, with(NetroItems.dionite, 10));
             researchCost = with(NetroItems.dionite, 20);
             consumePower(1/energy);
-            drillTime = 380f;
+            drillTime = 240f;
             tier = 2;
             health = 100;
             size = 2;
             squareSprite = false;
             consumeLiquid(NetroLiquids.cleanWater, 2f/fluid).boost();
-            liquidBoostIntensity = 1.2f;
+            liquidBoostIntensity = 1.4f;
+            liquidCapacity = 10f/fluid;
+        }};
+
+        hermiteDrill = new Drill("hermite-drill"){{
+            requirements(Category.production, with(NetroItems.dionite, 40, NetroItems.gatride, 15, NetroItems.hermite, 8));
+            researchCost = with(NetroItems.dionite, 400, NetroItems.gatride, 300, NetroItems.hermite, 75);
+            consumePower(2/energy);
+            drillTime = 200f;
+            tier = 4;
+            health = 200;
+            size = 2;
+            squareSprite = false;
+            consumeLiquid(NetroLiquids.cleanWater, 3f/fluid).boost();
+            liquidBoostIntensity = 1.4f;
             liquidCapacity = 10f/fluid;
         }};
 
@@ -278,6 +329,7 @@ public class NetroBlocks {
         hermitePipe = new Conduit("hermite-pipe"){{
             requirements(Category.liquid, with(NetroItems.dionite, 1, NetroItems.hermite, 1));
             researchCost = with(NetroItems.dionite, 100, NetroItems.hermite, 10);
+            botColor = Color.valueOf("271e40");
             underBullets = true;
             health = 10;
         }};
@@ -289,6 +341,18 @@ public class NetroBlocks {
             liquidCapacity = 18f;
             underBullets = true;
             solid = false;
+        }};
+
+        hermiteUndPipe = new DirectionLiquidBridge("hermite-und-pipe"){{
+            requirements(Category.liquid, with(NetroItems.dionite, 40, NetroItems.hermite, 30));
+            researchCost = with(NetroItems.dionite, 200, NetroItems.hermite, 100);
+            health = 50;
+            range = 4;
+            liquidCapacity = 45f;
+            underBullets = true;
+            squareSprite = false;
+
+            ((Conduit)hermitePipe).rotBridgeReplacement = this;
         }};
 
 
@@ -318,12 +382,21 @@ public class NetroBlocks {
 
 
         // Energy
+        dioniteWire = new PowerWire("dionite-wire"){{
+            requirements(Category.power, with(NetroItems.dionite, 1));
+            researchCost = with(NetroItems.dionite, 6);
+            health = 15;
+        }};
+
         dioniteNode = new BeamNode("dionite-node"){{
-            requirements(Category.power, with(NetroItems.dionite, 5));
-            researchCost = with(NetroItems.dionite, 10);
+            requirements(Category.power, with(NetroItems.dionite, 50, NetroItems.gatride, 25));
+            researchCost = with(NetroItems.dionite, 200, NetroItems.gatride, 120);
             consumesPower = outputsPower = true;
-            health = 40;
-            range = 5;
+            health = 90;
+            squareSprite = false;
+            range = 3;
+            laserColor1 = Color.white;
+            laserColor2 = Color.valueOf("f3e979");
             consumePowerBuffered(0f);
         }};
 
@@ -337,19 +410,20 @@ public class NetroBlocks {
                     width = 8f;
                     height = 10f;
                     lifetime = 23f;
-                    buildingDamageMultiplier = 0.01f;
+                    buildingDamageMultiplier = 0.1f;
                 }},
-                NetroItems.hermite, new BasicBulletType(5f, 12){{
+                NetroItems.hermite, new BasicBulletType(5f, 13){{
                     width = 8f;
                     height = 10f;
                     lifetime = 23f;
-                    buildingDamageMultiplier = 0.01f;
+                    buildingDamageMultiplier = 0.1f;
                     fragBullets = 3;
+                    ammoMultiplier = 5f;
                     fragBullet = new BasicBulletType(5f, 3){{
                         width = 4f;
                         height = 5f;
                         lifetime = 5f;
-                        buildingDamageMultiplier = 0.01f;
+                        buildingDamageMultiplier = 0.1f;
                     }};
                 }});
 
@@ -389,7 +463,7 @@ public class NetroBlocks {
                     hittable = false;
                     collidesAir = false;
                     lightColor = Color.white;
-                    buildingDamageMultiplier = 0.01f;
+                    buildingDamageMultiplier = 0.1f;
                 }};
             }};
             reload = 60f; //1 sec
@@ -405,6 +479,39 @@ public class NetroBlocks {
             shootSound = Sounds.spark;
             coolant = consume(new ConsumeLiquid(NetroLiquids.cleanWater, 15f/fluid));
             coolantMultiplier = 2f;
+        }};
+
+        minigun = new ItemTurret("minigun"){{
+            requirements(Category.turret, with(NetroItems.dionite, 100, NetroItems.gatride, 70, NetroItems.hermite, 30));
+            researchCost = with(NetroItems.dionite, 400, NetroItems.gatride, 200, NetroItems.hermite, 80);
+            ammo(
+                    NetroItems.hermite, new BasicBulletType(4f, 3){{
+                        width = 6f;
+                        height = 8f;
+                        lifetime = 23f;
+                        buildingDamageMultiplier = 0.9f;
+                        ammoMultiplier = 3f;
+                        shootCone = 30f;
+                        inaccuracy = 17f;
+                        fragBullets = 3;
+                        shoot.shotDelay = 5f;
+                        shoot.shots = 40;
+                    }});
+            shootSound = Sounds.shoot;
+            squareSprite = false;
+
+            ammoPerShot = 1;
+            drawer = new DrawTurret("netrobase-");
+            outlineColor = Pal.darkOutline;
+            size = 2;
+            reload = 300f;
+            recoil = 2f;
+            range = 96;
+            shootCone = 3f;
+            health = 320;
+            rotateSpeed = 1.2f;
+            coolant = consume(new ConsumeLiquid(NetroLiquids.cleanWater, 5f/fluid));
+            coolantMultiplier = 1.3f;
         }};
 
         volcano = new PowerTurret("volcano"){{

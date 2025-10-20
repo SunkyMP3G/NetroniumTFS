@@ -10,6 +10,8 @@ public class Netronium extends Mod{
     @Override
     public void loadContent(){
         NetroItems.load();
+        NetroLoreItems.load();
+        NetroGuideItems.load();
         NetroStatuses.load();
         NetroLiquids.load();
         NetroUnits.load();
@@ -18,7 +20,8 @@ public class Netronium extends Mod{
         NetroLoadouts.load();
         NetroPlanets.load();
         NetroSectors.load();
+        NetroLoreTree.load();
         NetroTechTree.load();
-        Log.info("Netronium mod (CU-2) is loaded successfully!");
+        Log.info("Netronium mod (CU-3) is loaded successfully!");
     }
 }
