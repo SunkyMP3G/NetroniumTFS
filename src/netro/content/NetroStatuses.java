@@ -10,7 +10,9 @@ import mindustry.type.*;
 public class NetroStatuses {
     public static StatusEffect
         // Usual statuses
-    corrosion, weakCorrosion, lavaMelting, shock, stasis, signalLoss, armorBreak, frostBurn, buildSuppress, buildSlowdown, snowy, blizzard,
+    corrosion, weakCorrosion, lavaMelting, shock,
+    stasis, signalLoss, armorBreak, frostBurn,
+    buildSuppress, buildSlowdown, snowy, blizzard,
         // Boss rage
     bomberRage1, bomberRage2, bomberRage3, bomberRage4;
 

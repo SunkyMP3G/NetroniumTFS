@@ -8,6 +8,7 @@ import mindustry.content.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
+import mindustry.entities.part.HoverPart;
 import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -32,7 +33,7 @@ public class NetroUnits {
     hydra, hydraHead, bomber,
 
     // Other
-    train;
+    portal, train;
 
     public static void load() {
 
@@ -491,6 +492,57 @@ public class NetroUnits {
 
 
         // Other
+        portal = new NetroUnitType("portal"){{ // Ground units should not appear from thin air
+            hitSize = 72f;
+            health = 250000f;
+            armor = 9000f;
+            speed = 0.6f;
+            drag = accel = 0.07f;
+            rotateSpeed = 0;
+            flying = true;
+            this.constructor = UnitEntity::create;
+            itemCapacity = 0;
+            researchCostMultiplier = 0f;
+            crashDamageMultiplier = 0f;
+
+            isEnemy = false;
+            canAttack = false;
+            drawItems = false;
+            drawCell = false;
+            bounded = false;
+            omniMovement = true;
+            drawMinimap = false;
+            faceTarget = false;
+            healFlash = false;
+            canHeal = false;
+            hittable = targetable = false;
+            physics = false;
+            useUnitCap = false;
+            hideDatabase = true;
+            engineSize = 0;
+
+            setEnginesMirror(
+                    new UnitEngine(0 / 4f, 155 / 4f, 4f, 90f),
+                    new UnitEngine(109 / 4f, 109 / 4f, 3f, 45f),
+                    new UnitEngine(155 / 4f, 0 / 4f, 4f, 0f),
+                    new UnitEngine(109 / 4f, -109 / 4f, 3f, -45f),
+                    new UnitEngine(0 / 4f, -155 / 4f, 4f, -90f)
+            );
+
+            parts.add(new HoverPart(){{
+                x = 0f;
+                y = 0;
+                mirror = false;
+                radius = 30f;
+                circles = 2;
+                sides = 40;
+                phase = 90f;
+                stroke = 2f;
+                layerOffset = -0.001f;
+                color = Color.valueOf("f25555");
+            }});
+        }};
+
         train = new NeoplasmUnitType("train"){{ // This is what happens when you let Asgore drive a train
             health = 66666;
             armor = 66666f;
@@ -499,8 +551,8 @@ public class NetroUnits {
             crushDamage = 66666f;
             speed = 5f;
             stepShake = 6f;
-            loopSound = Vars.tree.loadSound("thomas");
-            loopSoundVolume = 0.2f; // It's still loud
+            loopSound = Vars.tree.loadSound("asgore");
+            loopSoundVolume = 0.8f;
             targetAir = false;
             omniMovement = true;
             canDrown = false;

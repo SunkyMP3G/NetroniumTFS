@@ -2,9 +2,7 @@
 
 *The abandoned planet, surrounded by a dome, is waiting for you...*
 
-*Your main mission is to save the planet from invaders, and return life to it*
-
-###### And please, don't steal my sprites
+*Your main mission is to save the planet from invaders, and bring humans back to it*
 
 ---
 
@@ -14,4 +12,6 @@ Spoilers, lore library, new releases, and chat!
 ---
 ### [Netronium OST mod](https://github.com/SunkyMP3G/NetroniumMusic)
 ## Other used music
-"Thomas the Tank Engine main theme (Bass Boosted)" (thomas.ogg)
+"Asgore runs over Dess full theme" (asgore.ogg)
+
+###### Please, don't steal my sprites
