@@ -25,6 +25,7 @@ public class NetroPlanets {
             defaultCore = NetroBlocks.coreHusk;
             clearSectorOnLose = true;
             allowLaunchToNumbered = false;
+            allowCampaignRules = true;
             orbitRadius = 35;
 
             sectorSeed = 0;

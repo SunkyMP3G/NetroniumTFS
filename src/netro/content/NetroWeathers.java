@@ -26,7 +26,7 @@ public class NetroWeathers {
             density = 1600f;
             status = NetroStatuses.snowy;
 
-            sound = Sounds.windhowl;
+            sound = Sounds.windHowl;
             soundVol = 0f;
             soundVolOscMag = 1.5f;
             soundVolOscScl = 1100f;
