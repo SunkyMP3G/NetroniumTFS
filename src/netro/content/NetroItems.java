@@ -50,7 +50,7 @@ public class NetroItems {
 
 
         // Faulty items
-        dust = new Item("dust", Color.valueOf("333333")){{ // 10% Chance from Sand Separator
+        dust = new Item("dust", Color.valueOf("333333")){{ // 5% Chance from Sand Separator
             buildable = false;
         }};
         faultyMicrochip = new Item("microchip-faulty", Color.valueOf("333333")){{ // 5% chance from Microchip Press
@@ -60,7 +60,6 @@ public class NetroItems {
         // Other
         soon = new Item("soon", Color.valueOf("000000")){{ // Soon™
             buildable = false;
-            alwaysUnlocked = true;
             hideDatabase = true;
         }};
     }

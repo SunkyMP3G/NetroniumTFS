@@ -30,6 +30,18 @@ public class NetroTechTree {
             node(NetroBlocks.dioniteConveyor, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
                 node(NetroBlocks.dioniteRouter, () -> {
                     node(NetroBlocks.dioniteUndConveyor, () -> {
+                        node(NetroBlocks.netroSorter, () -> {
+                            node(NetroBlocks.netroOverflowGate, () -> {
+                                node(NetroBlocks.netroUnderflowGate, () -> {
+                                });
+                            });
+                            node(NetroBlocks.netroInvertedSorter, () -> {
+                            });
+                        });
+                        node(NetroBlocks.hermitePayloadConveyor, () -> {
+                            node(NetroBlocks.hermitePayloadRouter, () -> {
+                            });
+                        });
                     });
                 });
             });
@@ -52,7 +64,7 @@ public class NetroTechTree {
                 });
             });
 
-            node(NetroBlocks.origin, Seq.with(new Objectives.Research(NetroBlocks.dioniteDrill), new Objectives.Research(NetroBlocks.dioniteConveyor), new Objectives.Research(NetroBlocks.dioniteNode)), () -> {
+            node(NetroBlocks.origin, Seq.with(new Objectives.Research(NetroBlocks.dioniteDrill), new Objectives.Research(NetroBlocks.dioniteConveyor), new Objectives.Research(NetroBlocks.dioniteWire)), () -> {
                 node(NetroBlocks.tesla, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
                     // node(NetroBlocks.minigun, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
                     // });
@@ -73,11 +85,11 @@ public class NetroTechTree {
             });
 
             node(NetroSectors.firstSteps, () -> {
-                node(NetroSectors.theLake, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps)), () -> {
+                node(NetroSectors.theLake, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps), new Objectives.Research(NetroBlocks.dioniteUndConveyor)), () -> {
                     node(NetroSectors.shipyard, Seq.with(new Objectives.SectorComplete(NetroSectors.theLake)), () -> {
                         node(NetroSectors.challengeI, Seq.with(new Objectives.SectorComplete(NetroSectors.shipyard)), () -> {
                         });
-                        node(NetroItems.soon, Seq.with(new Objectives.SectorComplete(NetroSectors.theLake)), () -> {
+                        node(NetroItems.soon, Seq.with(new Objectives.SectorComplete(NetroSectors.shipyard), new Objectives.Research(NetroBlocks.coreDome)), () -> {
                         });
                     });
                 });

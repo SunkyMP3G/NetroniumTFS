@@ -12,6 +12,6 @@ Spoilers, lore library, new releases, and chat!
 ---
 ### [Netronium OST mod](https://github.com/SunkyMP3G/NetroniumMusic)
 ## Other used music
-"Asgore runs over Dess full theme" (asgore.ogg)
+"Asgore runs over Dess theme" (asgore.ogg)
 
 ###### Please, don't steal my sprites

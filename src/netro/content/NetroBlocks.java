@@ -54,6 +54,7 @@ public class NetroBlocks {
 
     // Transport
     dioniteConveyor, dioniteRouter, dioniteUndConveyor,
+    netroSorter, netroInvertedSorter, netroOverflowGate, netroUnderflowGate,
 
     // Liquids
     hermitePump, hermitePipe, hermiteRouter, hermiteUndPipe,
@@ -278,6 +279,32 @@ public class NetroBlocks {
             underBullets = true;
             ((Conveyor) dioniteConveyor).bridgeReplacement = this;
         }};
+        netroSorter = new Sorter("netro-sorter"){{
+            requirements(Category.distribution, with(NetroItems.dionite, 10, NetroItems.microchip, 2));
+            researchCost = with(NetroItems.dionite, 120, NetroItems.microchip, 5);
+            health = 150;
+            buildCostMultiplier = 3f;
+        }};
+        netroInvertedSorter = new Sorter("netro-inverted-sorter"){{
+            requirements(Category.distribution, with(NetroItems.dionite, 10, NetroItems.microchip, 2));
+            researchCost = with(NetroItems.dionite, 120, NetroItems.microchip, 5);
+            health = 150;
+            buildCostMultiplier = 3f;
+            invert = true;
+        }};
+        netroOverflowGate = new OverflowGate("netro-overflow-gate"){{
+            requirements(Category.distribution, with(NetroItems.dionite, 10, NetroItems.microchip, 2));
+            researchCost = with(NetroItems.dionite, 120, NetroItems.microchip, 5);
+            health = 150;
+            buildCostMultiplier = 3f;
+        }};
+        netroUnderflowGate = new OverflowGate("netro-underflow-gate"){{
+            requirements(Category.distribution, with(NetroItems.dionite, 10, NetroItems.microchip, 2));
+            researchCost = with(NetroItems.dionite, 120, NetroItems.microchip, 5);
+            health = 150;
+            buildCostMultiplier = 3f;
+            invert = true;
+        }};
 
 
         //Liquids
@@ -338,8 +365,8 @@ public class NetroBlocks {
             researchCost = with(NetroItems.dionite, 110, NetroItems.gatride, 30);
             health = 220;
             results = with(
-                NetroItems.hermite, 90,
-                NetroItems.dust, 10
+                NetroItems.hermite, 95,
+                NetroItems.dust, 5
             );
             craftTime = 180f;
             size = 2;
@@ -363,13 +390,13 @@ public class NetroBlocks {
 
             craftTime = 240f;
             hasPower = true;
-            hasLiquids = true;
+            hasLiquids = false;
             itemCapacity = 30;
             ambientSound = Sounds.loopCircuit;
             ambientSoundVolume = 0.1f;
             squareSprite = false;
 
-            consumeItems(with(NetroItems.gatride, 15, NetroItems.hermite, 5, NetroItems.tarant, 10));
+            consumeItems(with(NetroItems.gatride, 15, NetroItems.hermite, 3, NetroItems.tarant, 10));
             consumePower(8/energy);
             results = with(
                     NetroItems.microchip, 95,
@@ -490,6 +517,7 @@ public class NetroBlocks {
             rotateSpeed = 1.2f;
             recoil = 2f;
             shootCone = 3f;
+            hideDatabase = true;
 
             ammo(
                 NetroItems.hermite, new BasicBulletType(4f, 7){{
