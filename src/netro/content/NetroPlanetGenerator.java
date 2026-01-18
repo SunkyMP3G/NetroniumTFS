@@ -14,7 +14,6 @@ import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
 import static mindustry.Vars.*;
-@SuppressWarnings("SpellCheckingInspection")
 
 public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
     public float heightScl = 0.9f, octaves = 8, persistence = 0.7f, heightPow = 3f, heightMult = 1.6f;

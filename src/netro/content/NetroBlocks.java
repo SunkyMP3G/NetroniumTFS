@@ -13,6 +13,8 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import static mindustry.type.ItemStack.*;
 import mindustry.world.*;
+import mindustry.world.blocks.campaign.LandingPad;
+import mindustry.world.blocks.campaign.LaunchPad;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.distribution.*;
@@ -30,6 +32,7 @@ import mindustry.world.meta.*;
 public class NetroBlocks {
     public static Block
 
+    //region Stuff
     // Environment
     grassFloor, stoneFloor, gatrideFloor, sandFloor, retorFloor, iceFloor, metalLines,
     grassWall, stoneOreWall, gatrideWall, retorWall,
@@ -55,6 +58,7 @@ public class NetroBlocks {
     // Transport
     dioniteConveyor, dioniteRouter, dioniteUndConveyor,
     netroSorter, netroInvertedSorter, netroOverflowGate, netroUnderflowGate,
+    hermiteLaunchPad, netroLandingPad,
 
     // Liquids
     hermitePump, hermitePipe, hermiteRouter, hermiteUndPipe,
@@ -82,15 +86,16 @@ public class NetroBlocks {
 
     // Editor only
     supersteelWall, largeSupersteelWall;
+    //endregion stuff
 
     public static void load(){
-
-        // They could be just one variable, or even none, but I prefer this. Suffer
+        //region Variables
         float seconds = 60f;
         float energy = 60f;
         float fluid = 60f;
+        //endregion
 
-        // Environment
+        //region Environment
         grassFloor = new Floor("grass-floor"){{
             variants = 3;
             wall = NetroBlocks.grassWall;
@@ -133,9 +138,9 @@ public class NetroBlocks {
         retorWall = new StaticWall("retor-wall"){{
             variants = 3;
         }};
+        //endregion Environment
 
-
-        // Props
+        //region Props
         gatrideBoulder = new Prop("gatride-boulder"){{
             variants = 2;
             gatrideFloor.asFloor().decoration = this;
@@ -148,9 +153,9 @@ public class NetroBlocks {
             variants = 0;
             clipSize = 128f;
         }};
+        //endregion Props
 
-
-        // Vents
+        //region Vents
         gatrideVent = new SteamVent("gatride-vent"){{
             parent = blendGroup = gatrideFloor;
             attributes.set(Attribute.steam, 1f);
@@ -161,9 +166,9 @@ public class NetroBlocks {
             attributes.set(Attribute.steam, 1f);
             variants = 2;
         }};
+        //endregion Vents
 
-
-        // Ores
+        //region Ores
         oreDionite = new OreBlock("ore-dionite", NetroItems.dionite){{
             variants = 2;
         }};
@@ -173,9 +178,9 @@ public class NetroBlocks {
         oreTarant = new OreBlock("ore-tarant", NetroItems.tarant){{
             variants = 2;
         }};
+        //endregion Ores
 
-
-        // Environment liquids
+        //region Environment liquids
         lavaFloor = new Floor("lava-floor"){{
             speedMultiplier = 0.4f;
             variants = 0;
@@ -189,9 +194,9 @@ public class NetroBlocks {
             lightColor = Color.valueOf("f8c266");
             lightRadius = 40f;
         }};
+        //endregion Environment liquids
 
-
-        // Cores
+        //region Cores
         coreHusk = new NetroCoreBlock("core-husk"){{
             requirements(Category.effect, with(NetroItems.dionite, 500, NetroItems.gatride, 200));
             isFirstTier = true;
@@ -224,9 +229,9 @@ public class NetroBlocks {
 
             unitCapModifier = 16;
         }};
+        //endregion Cores
 
-
-        //Drills
+        //region Drills
         dioniteDrill = new Drill("dionite-drill"){{
             requirements(Category.production, with(NetroItems.dionite, 10));
             researchCost = with(NetroItems.dionite, 20);
@@ -253,9 +258,9 @@ public class NetroBlocks {
             liquidBoostIntensity = 1.4f;
             liquidCapacity = 10f;
         }};
+        //endregion Drills
 
-
-        // Transport
+        //region Transport
         dioniteConveyor = new Conveyor("dionite-conveyor"){{
             requirements(Category.distribution, with(NetroItems.dionite, 1));
             researchCost = with(NetroItems.dionite, 5);
@@ -305,9 +310,38 @@ public class NetroBlocks {
             buildCostMultiplier = 3f;
             invert = true;
         }};
+        hermiteLaunchPad = new LaunchPad("hermite-launch-pad"){{
+            requirements(Category.effect, with(NetroItems.dionite, 250, NetroItems.gatride, 200, NetroItems.hermite, 100, NetroItems.microchip, 30));
+            researchCost = with(NetroItems.dionite, 2500, NetroItems.gatride, 2000, NetroItems.hermite, 900, NetroItems.microchip, 150);
+            health = 900;
+            size = 3;
 
+            itemCapacity = 70;
+            squareSprite = false;
+            launchTime = 45*seconds;
+            liquidCapacity = 40f;
+            lightSteps = 2;
+            hasPower = true;
+            drawLiquid = Liquids.oil;
+            consumeLiquid(NetroLiquids.fuel, 9f/60f);
+            consumePower(30f/energy);
+        }};
+        netroLandingPad = new LandingPad("netro-landing-pad"){{
+            requirements(Category.effect, with(NetroItems.dionite, 150, NetroItems.gatride, 120, NetroItems.hermite, 40, NetroItems.microchip, 10));
+            researchCost = with(NetroItems.dionite, 700, NetroItems.gatride, 600, NetroItems.hermite, 500, NetroItems.microchip, 50);
+            health = 700;
+            size = 3;
 
-        //Liquids
+            itemCapacity = 70; // Will become bigger as better launch pads appear
+            squareSprite = false;
+            coolingEffect = new RadialEffect(Fx.steamCoolSmoke, 4, 90f, 7.5f, 180f);
+            liquidCapacity = 800f;
+            consumeLiquid = NetroLiquids.cleanWater;
+            consumeLiquidAmount = 400f;
+        }};
+        //endregion Transport
+
+        //region Liquids
         hermitePump = new AttributeCrafter("hermite-pump"){{
             requirements(Category.production, with(NetroItems.dionite, 100, NetroItems.hermite, 20));
             researchCost = with(NetroItems.dionite, 200, NetroItems.hermite, 20);
@@ -357,9 +391,9 @@ public class NetroBlocks {
 
             ((Conduit)hermitePipe).rotBridgeReplacement = this;
         }};
+        //endregion Liquids
 
-
-        // Production
+        //region Production
         sandFurnace = new Separator("sand-furnace"){{
             requirements(Category.crafting, with(NetroItems.dionite, 90, NetroItems.gatride, 40));
             researchCost = with(NetroItems.dionite, 110, NetroItems.gatride, 30);
@@ -403,9 +437,9 @@ public class NetroBlocks {
                     NetroItems.faultyMicrochip, 5
             );
         }};
+        //endregion Production
 
-
-        // Energy
+        //region Energy
         dioniteWire = new PowerWire("dionite-wire"){{
             requirements(Category.power, with(NetroItems.dionite, 1));
             researchCost = with(NetroItems.dionite, 6);
@@ -423,9 +457,9 @@ public class NetroBlocks {
             laserColor2 = Color.valueOf("f3e979");
             consumePowerBuffered(0f);
         }};
+        //endregion
 
-
-        // Turrets
+        //region Turrets
         origin = new ItemTurret("origin"){{
             requirements(Category.turret, with(NetroItems.dionite, 50, NetroItems.gatride, 25));
             researchCost = with(NetroItems.dionite, 70, NetroItems.gatride, 30);
@@ -597,9 +631,9 @@ public class NetroBlocks {
                     }};
                 }};
         }};
+        //endregion Turrets
 
-
-        // Walls
+        //region Walls
         dioniteWall = new Wall("dionite-wall"){{
             requirements(Category.defense, with(NetroItems.dionite, 6));
             researchCost = with(NetroItems.dionite, 30);
@@ -619,9 +653,9 @@ public class NetroBlocks {
             armor = 1f;
             size = 2;
         }};
+        //endregion Walls
 
-
-        // Unit crafters
+        //region Units
         dioniteAssembler = new UnitFactory("dionite-assembler"){{
             requirements(Category.units, with(NetroItems.dionite, 100, NetroItems.gatride, 70, NetroItems.hermite, 10));
             researchCost = with(NetroItems.dionite, 200, NetroItems.gatride, 120, NetroItems.hermite, 20);
@@ -637,9 +671,9 @@ public class NetroBlocks {
             );
             consumePower(24/energy);
         }};
+        //endregion Units
 
-
-        // Payload
+        //region Payload
         hermitePayloadConveyor = new PayloadConveyor("hermite-payload-conveyor"){{
             requirements(Category.units, with(NetroItems.dionite, 20, NetroItems.gatride, 30, NetroItems.hermite, 5));
             researchCost = with(NetroItems.dionite, 300, NetroItems.gatride, 340, NetroItems.hermite, 100);
@@ -654,9 +688,9 @@ public class NetroBlocks {
             moveTime = 60f;
             canOverdrive = false;
         }};
+        //endregion Payload
 
-
-        // Logic
+        //region Logic
         netroProcessor = new LogicBlock("netro-processor"){{
             requirements(Category.logic, with(NetroItems.gatride, 200, NetroItems.dionite, 140, NetroItems.hermite, 25, NetroItems.microchip, 10));
             researchCost = with(NetroItems.dionite, 600, NetroItems.gatride, 300, NetroItems.hermite, 100, NetroItems.microchip, 40);
@@ -684,9 +718,9 @@ public class NetroBlocks {
 
             memoryCapacity = 8;
         }};
+        //endregion Logic
 
-
-        // Editor only
+        //region Editor
         supersteelWall = new Wall("supersteel-wall"){{
             requirements(Category.defense, BuildVisibility.sandboxOnly, with());
             health = Integer.MAX_VALUE;
@@ -705,5 +739,6 @@ public class NetroBlocks {
             drawTeamOverlay = false;
             targetable = false;
         }};
+        //endregion Editor
     }
 }

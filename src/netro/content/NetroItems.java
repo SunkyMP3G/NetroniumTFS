@@ -23,7 +23,7 @@ public class NetroItems {
         }};
         gatride = new Item("gatride", Color.valueOf("62bfa9")){{
             hardness = 2;
-            cost = 2f;
+            cost = 1f;
             flammability = 0.1f;
             buildable = true;
         }};
@@ -32,7 +32,7 @@ public class NetroItems {
             buildable = false;
         }};
         hermite = new Item("hermite", Color.valueOf("dddddd")){{
-            cost = 4f;
+            cost = 2f;
             buildable = true;
         }};
 
@@ -40,11 +40,11 @@ public class NetroItems {
         // T2
         tarant = new Item("tarant", Color.valueOf("eac2a9")){{
             hardness = 3; // At least Hermite Drill
-            cost = 5f;
+            cost = 2f;
             buildable = true;
         }};
         microchip = new Item("microchip", Color.valueOf("99ff55")){{
-            cost = 6f;
+            cost = 3f;
             buildable = true;
         }};
 

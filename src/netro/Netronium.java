@@ -22,6 +22,6 @@ public class Netronium extends Mod{
         NetroSectors.load();
         NetroLoreTree.load();
         NetroTechTree.load();
-        Log.info("Netronium mod (CU-3.1) is loaded successfully!");
+        Log.info("Netronium mod (CU-4 dev) is loaded successfully!");
     }
 }

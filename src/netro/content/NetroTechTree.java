@@ -117,8 +117,8 @@ public class NetroTechTree {
             node(NetroGuideItems.guideIntro, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
                 node(NetroGuideItems.energyGuide, Seq.with(new Objectives.Research(NetroItems.dionite)), () -> {
                 });
-                node(NetroGuideItems.bossGuide, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps)), () -> {
-                    node(NetroGuideItems.bossRageGuide, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps)), () -> {
+                node(NetroGuideItems.bossGuide, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
+                    node(NetroGuideItems.bossRageGuide, Seq.with(new Objectives.SectorComplete(NetroSectors.shipyard)), () -> {
                     });
                 });
             });
