@@ -20,7 +20,11 @@ body:
       multiple: false
       options:
         - CU-1
-        - CU-2 (and .dev)
+        - CU-2
+        - CU-3
+        - CU-3.1
+        - CU-3.2
+        - CU-4 dev
     validations:
       required: true
   - type: checkboxes
