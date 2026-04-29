@@ -24,6 +24,7 @@ import mindustry.world.blocks.logic.*;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
+import mindustry.world.blocks.storage.StorageBlock;
 import mindustry.world.blocks.units.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
@@ -52,8 +53,11 @@ public class NetroBlocks {
     // Cores
     coreHusk, coreDome,
 
+    // Storage
+    itemContainer,
+
     // Drills
-    dioniteDrill, hermiteDrill,
+    dioniteDrill, hermiteDrill, wallDrill,
 
     // Transport
     dioniteConveyor, dioniteRouter, dioniteUndConveyor,
@@ -87,6 +91,8 @@ public class NetroBlocks {
     // Editor only
     supersteelWall, largeSupersteelWall;
     //endregion stuff
+
+    //TODO Make custom attributes. Hermite is not sand
 
     public static void load(){
         //region Variables
@@ -128,15 +134,19 @@ public class NetroBlocks {
         }};
         grassWall = new StaticWall("grass-wall"){{
             variants = 3;
+            attributes.set(Attribute.sand, 0.3f);
         }};
         stoneOreWall = new StaticWall("stone-ore-wall"){{
             variants = 3;
+            attributes.set(Attribute.sand, 1.4f);
         }};
         gatrideWall = new StaticWall("gatride-wall"){{
             variants = 3;
+            attributes.set(Attribute.sand, 1f);
         }};
         retorWall = new StaticWall("retor-wall"){{
             variants = 3;
+            attributes.set(Attribute.sand, 0.75f);
         }};
         //endregion Environment
 
@@ -231,6 +241,20 @@ public class NetroBlocks {
         }};
         //endregion Cores
 
+        //region Storage
+        itemContainer = new StorageBlock("item-container"){{
+            requirements(Category.production, with(NetroItems.dionite, 100, NetroItems.gatride, 100, NetroItems.hermite, 40));
+            researchCost = with(NetroItems.dionite, 700, NetroItems.gatride, 500, NetroItems.hermite, 150);
+            health = 400;
+            armor = 3;
+            size = 2;
+
+            itemCapacity = 150;
+            conductivePower = true;
+            squareSprite = false;
+        }};
+        //endregion
+
         //region Drills
         dioniteDrill = new Drill("dionite-drill"){{
             requirements(Category.production, with(NetroItems.dionite, 10));
@@ -257,6 +281,20 @@ public class NetroBlocks {
             consumeLiquid(NetroLiquids.cleanWater, 3f/fluid).boost();
             liquidBoostIntensity = 1.4f;
             liquidCapacity = 10f;
+        }};
+        wallDrill = new WallCrafter("hermite-wall-drill"){{
+            requirements(Category.production, with(NetroItems.dionite, 80, NetroItems.gatride, 50));
+            researchCost = with(NetroItems.dionite, 200, NetroItems.gatride, 100);
+            consumePower(3/energy);
+
+            drillTime = 180f;
+            size = 2;
+            squareSprite = false;
+            attribute = Attribute.sand;
+            output = NetroItems.hermite;
+            fogRadius = 2;
+            ambientSound = Sounds.loopDrill;
+            ambientSoundVolume = 0.04f;
         }};
         //endregion Drills
 

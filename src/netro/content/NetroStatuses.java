@@ -9,30 +9,23 @@ import mindustry.type.*;
 
 public class NetroStatuses {
     public static StatusEffect
-        // Usual statuses
-    corrosion, weakCorrosion, lavaMelting, shock,
-    stasis, signalLoss, armorBreak, frostBurn,
-    buildSuppress, buildSlowdown, snowy, blizzard,
-        // Boss rage
-    bomberRage1, bomberRage2, bomberRage3, bomberRage4,
-        // Wave challenges
-    waveRage1, waveRage2, waveRage3, waveRage4, waveRage5,
-        // Misc
-    eradicationNerf;
+    // Usual statuses
+        corrosion, weakCorrosion, lavaMelting, shock,
+        stasis, signalLoss, armorBreak, frostBurn,
+        buildSuppress, buildSlowdown, snowy, blizzard,
+
+    // Phomaxite
+        phomaxiteAlert,
+
+    // Boss rage
+        bomberRage1, bomberRage2, bomberRage3, bomberRage4,
+    // Wave challenges
+        waveRage1, waveRage2, waveRage3, waveRage4, waveRage5;
 
     public static void load(){
         // Since campaign will have its own unique bosses with their own HP and damage, these buffs will only be bad
         StatusEffects.boss.healthMultiplier = 1;
         StatusEffects.boss.damageMultiplier = 1;
-
-
-        corrosion = new StatusEffect("corrosion"){{ // When you step on phomaxite
-            color = Color.valueOf("ffc455");
-            damage = 0.4f;
-            effect = new WrapEffect(Fx.melting, Color.valueOf("ffc455"));
-            speedMultiplier = 0.7f;
-            healthMultiplier = 0.8f;
-        }};
 
         weakCorrosion = new StatusEffect("weak-corrosion"){{ // Acid rain internal status
             color = Pal.plastanium;
@@ -97,16 +90,27 @@ public class NetroStatuses {
         }};
 
 
+        // Phomaxite
+        phomaxiteAlert = new StatusEffect("phomaxite-alert"){{ // Applied on alerted Phomaxite Abominations
+            speedMultiplier = 2f;
+        }};
+        corrosion = new StatusEffect("corrosion"){{ // Phomaxitic spits and explosions, stepping on phomaxite
+            color = Color.valueOf("c4ff55");
+            damage = 0.4f;
+            effect = new WrapEffect(Fx.melting, Color.valueOf("c4ff55"));
+            speedMultiplier = 0.7f;
+            healthMultiplier = 0.8f;
+        }};
+
+
         // Boss rage
         // Bomber
         bomberRage1 = new StatusEffect("bomber-rage1"){{ // 80 seconds after spawn
             speedMultiplier = 1.8f;
         }};
-
         bomberRage2 = new StatusEffect("bomber-rage2"){{ // 120 seconds after spawn
             speedMultiplier = 2.6f;
         }};
-
         bomberRage3 = new StatusEffect("bomber-rage3"){{ // 160 seconds after spawn
             speedMultiplier = 3.4f;
         }};
@@ -135,12 +139,6 @@ public class NetroStatuses {
         waveRage5 = new StatusEffect("wave-rage5"){{
             damageMultiplier = healthMultiplier = 3f;
             speedMultiplier = reloadMultiplier = 1.5f;
-        }};
-
-
-        // Misc
-        eradicationNerf = new StatusEffect("eradication-nerf"){{ // Doubling the bosses doesn't mean that they should have +50% hp on top of that
-            healthMultiplier = 0.66f;
         }};
     }
 }

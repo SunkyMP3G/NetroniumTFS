@@ -30,10 +30,10 @@ public class NetroUnits {
     hope, spark, kamikaze, plasma,
 
     // Bosses
-    hydra, hydraHead, bomber,
+    bomber, swarm,
 
     // Other
-    portal, beaconUnit, train;
+    portal, beaconUnit, train, slav, hydra, hydraHead;
 
     public static void load() {
 
@@ -491,6 +491,43 @@ public class NetroUnits {
                 }};
             }});
         }};
+        swarm = new PhomaxiteUnitType("swarm"){{ // BACTERIA...
+            health = 700;
+            armor = 2f;
+            speed = 1.2f;
+            drag = 0.3f;
+            accel = 0.3f;
+            aiController = FlyingAI::new;
+            rotateSpeed = 5f;
+            hitSize = 10f;
+            useUnitCap = true; // Infinite units would be unfair + would lag. Unit cap should be around 64 for maps
+            crashDamageMultiplier = 0;
+            flying = true;
+            this.constructor = UnitEntity::create;
+
+            weapons.add(new Weapon() {{
+                reload = 60f;
+                shootCone = 15f;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.shootAtrax;
+                x = 0f;
+                shootY = 7f;
+                mirror = false;
+                bullet = new LiquidBulletType(NetroLiquids.phomaxite){{
+                    damage = 80;
+                    speed = 2.5f;
+                    drag = 0.009f;
+                    shootEffect = Fx.vaporSmall;
+                    lifetime = 30f;
+                    status = NetroStatuses.corrosion;
+                    statusDuration = 300f;
+                    despawnEffect = Fx.vaporSmall;
+                    knockback = 0;
+                }};
+            }});
+        }};
+        // Boss special ability (Has to be outside otherwise it crashes)
+        swarm.abilities.add(new EffectlessUnitSpawnAbility(NetroUnits.swarm, 60f*10f, 0f, 0f));
 
 
         // Other
@@ -666,6 +703,34 @@ public class NetroUnits {
                 y = -64f;
                 color = Color.grays(0.6f).lerp(Pal.redLight, 0.5f).a(0.4f);
                 interval = 7f;
+            }});
+        }};
+
+        slav = new NetroUnitType("slav"){{ // SLAVYANSKIY ZAZHIM YAITCAMI
+            hitSize = 64f;
+            health = 8008135f;
+            armor = 1984f;
+            speed = 2.1f;
+            drag = accel = 0.69f;
+            flying = true;
+            this.constructor = UnitEntity::create;
+            itemCapacity = 0;
+            researchCostMultiplier = 0f;
+            crashDamageMultiplier = 420f;
+
+            weapons.add(new Weapon(){{
+                reload = 10f;
+                mirror = true;
+                top = false;
+                x = 0f;
+                y = 0f;
+                alternate = true;
+                shootSound = Vars.tree.loadSound("slav");
+                ejectEffect = Fx.none;
+                recoil = 0f;
+                bullet = new BasicBulletType(52f, 1000000f, "netroniummod-slav-egg"){{
+                    width = height = 32;
+                }};
             }});
         }};
     }
