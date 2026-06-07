@@ -8,7 +8,7 @@ public class NetroItems {
     // T1
         dionite, gatride, netroSand, hermite,
     // T2
-        tarant, microchip,
+        tarant, microchip, refinedTarant,
     // Faulty items
         dust, faultyMicrochip,
     // Other
@@ -44,6 +44,10 @@ public class NetroItems {
             buildable = true;
         }};
         microchip = new Item("microchip", Color.valueOf("99ff55")){{
+            cost = 3f;
+            buildable = true;
+        }};
+        refinedTarant = new Item("refined-tarant", Color.valueOf("eac2a9")){{
             cost = 3f;
             buildable = true;
         }};

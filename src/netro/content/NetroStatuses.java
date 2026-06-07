@@ -10,12 +10,12 @@ import mindustry.type.*;
 public class NetroStatuses {
     public static StatusEffect
     // Usual statuses
-        corrosion, weakCorrosion, lavaMelting, shock,
+        weakCorrosion, lavaMelting, shock,
         stasis, signalLoss, armorBreak, frostBurn,
         buildSuppress, buildSlowdown, snowy, blizzard,
 
     // Phomaxite
-        phomaxiteAlert,
+        phomaxiteAlert, corrosion, phomaxiteMarked,
 
     // Boss rage
         bomberRage1, bomberRage2, bomberRage3, bomberRage4,
@@ -94,10 +94,13 @@ public class NetroStatuses {
         phomaxiteAlert = new StatusEffect("phomaxite-alert"){{ // Applied on alerted Phomaxite Abominations
             speedMultiplier = 2f;
         }};
+        phomaxiteMarked = new StatusEffect("phomaxite-marked"){{ // Visual status applied on units targeted by Phomaxite Abominations
+            speedMultiplier = 1f;
+        }};
         corrosion = new StatusEffect("corrosion"){{ // Phomaxitic spits and explosions, stepping on phomaxite
             color = Color.valueOf("c4ff55");
             damage = 0.4f;
-            effect = new WrapEffect(Fx.melting, Color.valueOf("c4ff55"));
+            effect = new WrapEffect(Fx.vapor, Color.valueOf("c4ff55"));
             speedMultiplier = 0.7f;
             healthMultiplier = 0.8f;
         }};

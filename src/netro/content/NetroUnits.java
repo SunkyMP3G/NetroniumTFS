@@ -22,6 +22,7 @@ import static mindustry.Vars.*;
 
 public class NetroUnits {
     public static UnitType
+    //region Stuff
 
     // Core units
     unite, verge,
@@ -29,15 +30,22 @@ public class NetroUnits {
     //T1
     hope, spark, kamikaze, plasma,
 
+    //T2
+    //dream, flame, falcon, arc,
+
     // Bosses
     bomber, swarm,
 
+    // Golden
+    hopeG, sparkG, kamikazeG, plasmaG,
+
     // Other
-    portal, beaconUnit, train, slav, hydra, hydraHead;
+    portal, train, slav, hydra, hydraHead;
+    //endregion
 
     public static void load() {
 
-        //Core units
+        //region Core units
         unite = new NetroUnitType("unite"){{ // Советский
             coreUnitDock = true;
             controller = u -> new BuilderAI(true, 500);
@@ -165,8 +173,9 @@ public class NetroUnits {
                 }};
             }});
         }};
+        //endregion
 
-        //T1
+        //region T1
         hope = new TankUnitType("hope"){{ // Tonk
             health = 400f;
             hitSize = 13f;
@@ -315,8 +324,9 @@ public class NetroUnits {
 
             abilities.add(new ForceFieldAbility(30f, 0.3f, 500f, 60f * 10, 18, 0f){});
         }};
+        //endregion
 
-        // Bosses
+        //region Bosses
         hydraHead = new NetroBossUnit("hydra-head"){{ // The head of "just a boss unit"
             health = 3000;
             armor = 3f;
@@ -495,8 +505,7 @@ public class NetroUnits {
             health = 700;
             armor = 2f;
             speed = 1.2f;
-            drag = 0.3f;
-            accel = 0.3f;
+            drag = accel = 0.03f;
             aiController = FlyingAI::new;
             rotateSpeed = 5f;
             hitSize = 10f;
@@ -527,10 +536,192 @@ public class NetroUnits {
             }});
         }};
         // Boss special ability (Has to be outside otherwise it crashes)
-        swarm.abilities.add(new EffectlessUnitSpawnAbility(NetroUnits.swarm, 60f*10f, 0f, 0f));
+        swarm.abilities.add(new PhomaxiteUnitSpawnAbility(NetroUnits.swarm, 60f*10f, 0f, 0f)); //TODO balance time
+        //endregion
 
+        //region Golden
+        hopeG = new TankUnitType("hope-g"){{ // MY HOPE WILL NEVER DIE
+            health = 600f;
+            hitSize = 13f;
+            hideDatabase = true;
+            armor = 2f;
+            speed = 0.7f;
+            rotateSpeed = 3f;
+            flying = false;
+            this.constructor = TankUnit::create;
+            itemCapacity = 0;
+            outlineColor = Color.valueOf("3f207d");
+            treadPullOffset = 0;
+            treadFrames = 14;
 
-        // Other
+            treadRects = new Rect[]{new Rect(8f - 32f, 4f - 32f, 11f, 56f)};
+
+            researchCostMultiplier = 0f;
+
+            weapons.add(new Weapon("netroniummod-hope-g-weapon"){{
+                reload = cooldownTime = 80f;
+                layerOffset = 0.0001f;
+                mirror = false;
+                top = true;
+                x = y = 0;
+                shootY = 10f;
+                recoil = 2f;
+                rotate = true;
+                rotateSpeed = 5f;
+                shoot = new ShootSpread(5, 15f);
+                shootCone = 10f;
+                shootSound = Sounds.shootLancer;
+                heatColor = Color.valueOf("ff2020");
+                bullet = new LaserBulletType(15f){{
+                    sideAngle = 35f;
+                    sideWidth = 1f;
+                    sideLength = 10f;
+                    length = 50f;
+                    buildingDamageMultiplier = 1.2f;
+                    pierce = true;
+                    pierceCap = 1;
+                    colors = new Color[]{Pal.accent.cpy().a(0.4f), Pal.accent, Color.white};
+                }};
+            }});
+        }};
+
+        sparkG = new NetroUnitType("spark-g"){{ // Australium
+            hitSize = 8f;
+            health = 120f;
+            armor = 0f;
+            speed = 2.7f;
+            drag = accel = 0.08f;
+            outlineColor = Color.valueOf("3f207d");
+            flying = true;
+            this.constructor = UnitEntity::create;
+            itemCapacity = 0;
+            researchCostMultiplier = 0f;
+            crashDamageMultiplier = 0.2f; // You have kamikaze for that
+
+            weapons.add(new Weapon("netroniummod-spark-g-weapon") {{
+                reload = 20f;
+                mirror = true;
+                top = false;
+                x = 2.75f;
+                y = 2.72f;
+                alternate = true;
+                shoot.shots = 3;
+                shoot.shotDelay = 4f;
+                shootSound = Sounds.shoot;
+                ejectEffect = Fx.casing1;
+                recoil = 0.4f;
+                bullet = new BasicBulletType() {{
+                    damage = 14f;
+                    speed = 3f;
+                    width = height = 8;
+                }};
+            }});
+        }};
+        kamikazeG = new NetroUnitType("kamikaze-g"){{ // I AM BULLETPROOF *dies*
+            hitSize = 8f;
+            health = 40f;
+            armor = 0f;
+            speed = 2.6f;
+            range = 40f;
+            drag = accel = 0.06f;
+            crashDamageMultiplier = 4f;
+            flying = true;
+            this.constructor = UnitEntity::create;
+            outlineColor = Color.valueOf("3f207d");
+            itemCapacity = 0;
+            researchCostMultiplier = 0f;
+            engineOffset = 2;
+
+            abilities.add(new ShieldArcAbility(){{
+                region = null;
+                radius = 20f;
+                angle = 60f;
+                regen = 100f;
+                cooldown = 60f * 10f;
+                max = 10000f;
+                y = -10f;
+                width = 6f;
+                whenShooting = false;
+            }});
+
+            weapons.add(new Weapon() {{
+                shootOnDeath = true;
+                reload = 24f;
+                shootCone = 180f;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.explosion;
+                x = shootY = 0f;
+                mirror = false;
+                bullet = new BulletType() {{
+                    collidesTiles = false;
+                    collides = false;
+                    hitSound = Sounds.explosion;
+
+                    rangeOverride = 30f;
+                    hitEffect = Fx.pulverize;
+                    speed = 0f;
+                    splashDamageRadius = 0f;
+                    instantDisappear = true;
+                    splashDamage = 0f;
+                    killShooter = true;
+                    hittable = false;
+                    collidesAir = collidesGround = false;
+                }};
+            }});
+        }};
+        plasmaG = new NetroUnitType("plasma-g"){{ // Crab but yellow
+            aiController = DefenderAI::new;
+            range = 5f;
+            hitSize = 9f;
+            health = 700;
+            armor = 3f;
+            speed = 1f;
+            flying = false;
+            playerControllable = true;
+            this.constructor = LegsUnit::create;
+            itemCapacity = 0;
+            researchCostMultiplier = 0f;
+            outlineColor = Color.valueOf("3f207d");
+
+            drag = 0.1f;
+            rotateSpeed = 3.8f;
+            stepShake = 0f;
+            allowLegStep = true;
+
+            legCount = 8;
+            legLength = 14f;
+            legGroupSize = 4;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -5f;
+            legBaseOffset = 4f;
+            legMaxLength = 1.1f;
+            legMinLength = 0.2f;
+            legLengthScl = 1f;
+            legForwardScl = 0.9f;
+
+            legMoveSpace = 1f;
+            hovering = true;
+
+            shadowElevation = 0.1f;
+            groundLayer = Layer.legUnit - 1f;
+
+            abilities.add(new ForceFieldAbility(50f, 0.7f, 1000f, 60f * 10, 18, 0f){});
+            abilities.add(new ShieldArcAbility(){{
+                region = null;
+                radius = 60f;
+                angle = 380f;
+                regen = 0.5f;
+                cooldown = 9999f;
+                max = 1500f;
+                y = 0f;
+                width = 8f;
+                whenShooting = false;
+            }});
+        }};
+        //endregion
+
+        //region Other
         portal = new NetroUnitType("portal"){{ // Ground units should not appear from thin air
             hitSize = 72f;
             health = 250000f;
@@ -579,78 +770,6 @@ public class NetroUnits {
                 stroke = 2f;
                 layerOffset = -0.001f;
                 color = Color.valueOf("f25555");
-            }});
-        }};
-
-        beaconUnit = new NetroUnitType("beacon-unit"){{ // WIP, might be cut
-            hitSize = 8f;
-            health = 3000f;
-            armor = 10f;
-            speed = 0f;
-            drag = accel = 0.08f;
-            rotateSpeed = 0;
-            flying = true;
-            this.constructor = UnitEntity::create;
-            itemCapacity = 0;
-            researchCostMultiplier = 0f;
-            crashDamageMultiplier = 0f;
-            buildSpeed = 2f;
-            buildRange = 800f;
-
-            isEnemy = false;
-            canAttack = false;
-            drawItems = false;
-            drawCell = false;
-            bounded = false;
-            omniMovement = true;
-            drawMinimap = false;
-            faceTarget = false;
-            healFlash = false;
-            canHeal = false;
-            hittable = targetable = false;
-            physics = false;
-            useUnitCap = false;
-            hideDatabase = true;
-            engineSize = 0;
-
-            parts.add(new HoverPart(){{
-                x = 0f;
-                y = 0;
-                mirror = false;
-                radius = 15f;
-                circles = 1;
-                sides = 30;
-                phase = 60f;
-                stroke = 2f;
-                layerOffset = -0.001f;
-                color = Color.valueOf("ffe18f");
-            }});
-
-            weapons.add(new RepairBeamWeapon(){{
-                widthSinMag = 0.11f;
-                reload = 20f;
-                x = 0f;
-                y = 0f;
-                rotate = false;
-                shootY = 0f;
-                beamWidth = 0.5f;
-                repairSpeed = 0.75f;
-                fractionRepairSpeed = 0.01f;
-                aimDst = 0f;
-                forceMultiTarget = true;
-                shootCone = 360f;
-                mirror = true;
-
-                targetUnits = false;
-                targetBuildings = true;
-                autoTarget = true;
-                controllable = true;
-                laserColor = Pal.accent;
-                healColor = Pal.heal;
-
-                bullet = new BulletType(){{
-                    maxRange = 800f;
-                }};
             }});
         }};
 
@@ -733,5 +852,6 @@ public class NetroUnits {
                 }};
             }});
         }};
+        //endregion
     }
 }

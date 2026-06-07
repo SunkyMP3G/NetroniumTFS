@@ -8,13 +8,13 @@ import classes.*;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
+import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import static mindustry.type.ItemStack.*;
 import mindustry.world.*;
-import mindustry.world.blocks.campaign.LandingPad;
-import mindustry.world.blocks.campaign.LaunchPad;
+import mindustry.world.blocks.campaign.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.distribution.*;
@@ -24,7 +24,7 @@ import mindustry.world.blocks.logic.*;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
-import mindustry.world.blocks.storage.StorageBlock;
+import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.units.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
@@ -74,13 +74,13 @@ public class NetroBlocks {
     dioniteWire, dioniteNode,
 
     // Turrets
-    origin, tesla, minigun, volcano, //Volcano is a turret. Change my mind
+    origin, tesla, minigun, hook, volcano, //Volcano is a turret. Change my mind
 
     // Walls
     dioniteWall, largeDioniteWall, dioniteDoor,
 
-    // Unit crafters
-    dioniteAssembler,
+    // Units
+    dioniteAssembler, tarantReassembler,
 
     // Payload
     hermitePayloadConveyor, hermitePayloadRouter,
@@ -149,6 +149,9 @@ public class NetroBlocks {
             attributes.set(Attribute.sand, 0.75f);
         }};
         //endregion Environment
+        Blocks.metalWall1.attributes.set(Attribute.sand, 2f);
+        Blocks.metalWall2.attributes.set(Attribute.sand, 2f);
+        Blocks.metalWall3.attributes.set(Attribute.sand, 2f);
 
         //region Props
         gatrideBoulder = new Prop("gatride-boulder"){{
@@ -502,26 +505,27 @@ public class NetroBlocks {
             requirements(Category.turret, with(NetroItems.dionite, 50, NetroItems.gatride, 25));
             researchCost = with(NetroItems.dionite, 70, NetroItems.gatride, 30);
             ammo(
-                NetroItems.dionite, new BasicBulletType(5f, 25){{
-                    width = 8f;
-                    height = 10f;
-                    lifetime = 23f;
-                    buildingDamageMultiplier = 0.1f;
-                }},
-                NetroItems.hermite, new BasicBulletType(5f, 20){{
-                    width = 8f;
-                    height = 10f;
-                    lifetime = 23f;
-                    buildingDamageMultiplier = 0.1f;
-                    fragBullets = 3;
-                    ammoMultiplier = 5f;
-                    fragBullet = new BasicBulletType(5f, 5){{
-                        width = 4f;
-                        height = 5f;
-                        lifetime = 5f;
+                    NetroItems.dionite, new BasicBulletType(5f, 25){{
+                        width = 8f;
+                        height = 10f;
+                        lifetime = 23f;
                         buildingDamageMultiplier = 0.1f;
-                    }};
-                }});
+                    }},
+                    NetroItems.hermite, new BasicBulletType(5f, 20){{
+                        width = 8f;
+                        height = 10f;
+                        lifetime = 23f;
+                        buildingDamageMultiplier = 0.1f;
+                        fragBullets = 3;
+                        ammoMultiplier = 5f;
+                        fragBullet = new BasicBulletType(5f, 5){{
+                            width = 4f;
+                            height = 5f;
+                            lifetime = 5f;
+                            buildingDamageMultiplier = 0.1f;
+                        }};
+                    }}
+            );
 
             shootSound = Sounds.shoot;
             shootSoundVolume = 1.5f;
@@ -611,6 +615,57 @@ public class NetroBlocks {
             coolant = consume(new ConsumeLiquid(NetroLiquids.cleanWater, 5f/fluid));
             coolantMultiplier = 3f;
         }};
+        hook = new ItemTurret("hook"){{ //TODO WIP
+            requirements(Category.turret, with(NetroItems.dionite, 9999));
+            researchCost = with(NetroItems.dionite, 9999);
+            ammo(
+                NetroItems.hermite, new BasicBulletType(4f, 30, "netroniummod-hook-bullet"){{
+                    width = 8f;
+                    height = 32f;
+                    lifetime = 40f;
+                    collidesTiles = false;
+                    knockback = -6f;
+                    hitEffect = Fx.none;
+                    ammoPerShot = 5;
+                    trailLength = 64;
+                    trailInterval = 0.2f;
+                    trailWidth = 0f;
+                    trailColor = Pal.accent;
+                    sticky = true;
+                    stickyExtraLifetime = 20f;
+                    trailEffect = NetroFx.chainPart;
+                    trailRotation = true;
+                    ammoMultiplier = 1f;
+                }}
+            );
+            reload = 120f;
+            itemCapacity = 30;
+            shootCone = 5f;
+            shootY = 6f;
+            rotateSpeed = 10f;
+            drawer = new DrawTurret("netrobase-"){{
+                parts.add(new RegionPart("-side"){{
+                    progress = PartProgress.charge;
+                    moveX = 0.6f;
+                    moveRot = -15f;
+                    mirror = true;
+                    layerOffset = 0.001f;
+                    moves.add(new PartMove(PartProgress.recoil, 0f, -0.5f, -10f));
+                }}, new RegionPart("-barrel"){{
+                    progress = PartProgress.recoil;
+                    moveY = -2f;
+                }});
+            }};
+            range = 160f;
+            shootEffect = Fx.none;
+            recoil = 0f;
+            size = 3;
+            health = 520;
+            shootSound = Sounds.shootBreach;
+            coolant = consume(new ConsumeLiquid(NetroLiquids.cleanWater, 15f/fluid));
+            coolantMultiplier = 2f;
+        }};
+
         volcano = new PowerTurret("volcano"){{
             requirements(Category.turret, with());
             size = 4;
@@ -702,13 +757,29 @@ public class NetroBlocks {
 
             regionSuffix = "-netro";
             plans = Seq.with(
-                    new UnitPlan(NetroUnits.hope, 40*seconds, with(NetroItems.dionite, 80, NetroItems.gatride, 50, NetroItems.hermite, 8)),
-                    new UnitPlan(NetroUnits.spark, 25*seconds, with(NetroItems.dionite, 50, NetroItems.gatride, 30, NetroItems.hermite, 5)),
-                    new UnitPlan(NetroUnits.kamikaze, 15*seconds, with(NetroItems.dionite, 20, NetroItems.gatride, 50, NetroItems.hermite, 3)),
-                    new UnitPlan(NetroUnits.plasma, 50*seconds, with(NetroItems.dionite, 120, NetroItems.gatride, 50, NetroItems.hermite, 10))
+                new UnitPlan(NetroUnits.hope, 40*seconds, with(NetroItems.dionite, 80, NetroItems.gatride, 50, NetroItems.hermite, 8)),
+                new UnitPlan(NetroUnits.spark, 25*seconds, with(NetroItems.dionite, 50, NetroItems.gatride, 30, NetroItems.hermite, 5)),
+                new UnitPlan(NetroUnits.kamikaze, 15*seconds, with(NetroItems.dionite, 20, NetroItems.gatride, 50, NetroItems.hermite, 3)),
+                new UnitPlan(NetroUnits.plasma, 50*seconds, with(NetroItems.dionite, 120, NetroItems.gatride, 50, NetroItems.hermite, 10))
             );
             consumePower(24/energy);
         }};
+//        TODO
+//        tarantReassembler = new Reconstructor("tarant-reassembler"){{
+//            requirements(Category.units, with());
+//            researchCost = with();
+//            health = 700;
+//            size = 4;
+//
+//            regionSuffix = "-netro";
+//            upgrades.addAll(
+//                    new UnitType[]{NetroUnits.hope, NetroUnits.dream},
+//                    new UnitType[]{NetroUnits.spark, NetroUnits.flame},
+//                    new UnitType[]{NetroUnits.kamikaze, NetroUnits.falcon},
+//                    new UnitType[]{NetroUnits.plasma, NetroUnits.arc}
+//            );
+//            consumePower(24/energy);
+//        }};
         //endregion Units
 
         //region Payload

@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.entities.effect.WrapEffect;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import netro.content.NetroLiquids;
 import netro.content.NetroStatuses;
@@ -12,7 +13,7 @@ import mindustry.entities.abilities.*;
 public class PhomaxiteUnitType extends UnitType {
     public PhomaxiteUnitType(String name){
         super(name);
-        outlineColor = Color.valueOf("3c7042");
+        outlineColor = Pal.neoplasmOutline;
         canDrown = false;
         payloadCapacity = 0;
         engineSize = 0;
@@ -22,7 +23,7 @@ public class PhomaxiteUnitType extends UnitType {
         itemCapacity = 0;
         createScorch = false;
         deathSound = Sounds.shootSap;
-        deathExplosionEffect = new WrapEffect(Fx.fluxVapor, Color.valueOf("c4ff55"));
+        deathExplosionEffect = new WrapEffect(Fx.smokeCloud, Color.valueOf("c4ff55"));
         immunities.add(NetroStatuses.corrosion);
         healFlash = false;
 
