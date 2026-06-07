@@ -15,6 +15,7 @@ import mindustry.gen.*;
 import mindustry.type.*;
 
 import static mindustry.Vars.*;
+@SuppressWarnings("all")
 
 public class PhomaxiteUnitSpawnAbility extends Ability { //Same UnitSpawn but without yellow lines and another effect. Used for Swarm boss
     public UnitType unit;
@@ -47,7 +48,8 @@ public class PhomaxiteUnitSpawnAbility extends Ability { //Same UnitSpawn but wi
         timer += Time.delta * state.rules.unitBuildSpeed(unit.team);
 
         if(timer >= spawnTime && Units.canCreate(unit.team, this.unit)){
-            float x = unit.x + Angles.trnsx(unit.rotation, spawnY, -spawnX), y = unit.y + Angles.trnsy(unit.rotation, spawnY, -spawnX); //Anuke why
+            //what anuke was thinking when assigning spawnY as 'x' value and vice versa? AND IT SOMEHOW WORKS?
+            float x = unit.x + Angles.trnsx(unit.rotation, spawnY, -spawnX), y = unit.y + Angles.trnsy(unit.rotation, spawnY, -spawnX);
             spawnEffect.at(x, y, 0f, parentizeEffects ? unit : null);
             Unit u = this.unit.create(unit.team);
             u.set(x, y);

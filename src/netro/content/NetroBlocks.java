@@ -80,7 +80,7 @@ public class NetroBlocks {
     dioniteWall, largeDioniteWall, dioniteDoor,
 
     // Units
-    dioniteAssembler, tarantReassembler,
+    dioniteAssembler, //tarantReassembler,
 
     // Payload
     hermitePayloadConveyor, hermitePayloadRouter,
