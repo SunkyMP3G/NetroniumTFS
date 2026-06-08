@@ -90,7 +90,7 @@ public class NetroBlocks {
 
     // Editor only
     supersteelWall, largeSupersteelWall;
-    //endregion stuff
+    //endregion Stuff
 
     //TODO Make custom attributes. Hermite is not sand
 
@@ -99,7 +99,10 @@ public class NetroBlocks {
         float seconds = 60f;
         float energy = 60f;
         float fluid = 60f;
-        //endregion
+        Blocks.metalWall1.attributes.set(Attribute.sand, 1.5f);
+        Blocks.metalWall2.attributes.set(Attribute.sand, 1.5f);
+        Blocks.metalWall3.attributes.set(Attribute.sand, 1.5f);
+        //endregion Variables
 
         //region Environment
         grassFloor = new Floor("grass-floor"){{
@@ -147,9 +150,6 @@ public class NetroBlocks {
             attributes.set(Attribute.sand, 0.75f);
         }};
         //endregion Environment
-        Blocks.metalWall1.attributes.set(Attribute.sand, 1.5f);
-        Blocks.metalWall2.attributes.set(Attribute.sand, 1.5f);
-        Blocks.metalWall3.attributes.set(Attribute.sand, 1.5f);
 
         //region Props
         gatrideBoulder = new Prop("gatride-boulder"){{
@@ -234,7 +234,7 @@ public class NetroBlocks {
             itemCapacity = 2000;
             size = 3;
             thrusterLength = 12/2f;
-            powerProduction = 6.66666666f;
+            powerProduction = 6.66666667f;
             squareSprite = false;
             incinerateNonBuildable = true;
 
@@ -254,7 +254,7 @@ public class NetroBlocks {
             conductivePower = true;
             squareSprite = false;
         }};
-        //endregion
+        //endregion Storage
 
         //region Drills
         dioniteDrill = new Drill("dionite-drill"){{
@@ -446,11 +446,10 @@ public class NetroBlocks {
             ambientSoundVolume = 0.1f;
             squareSprite = false;
 
-            consumeItems(with(NetroItems.netroSand, 3, NetroItems.gatride, 2));
+            consumeItems(with(NetroItems.gatride, 3, NetroItems.hermite, 2));
             outputItems = with(NetroItems.plating, 1);
             consumePower(4/energy);
-
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawArcSmelt(), new DrawDefault());
+            craftEffect = Fx.pulverizeMedium;
         }};
         microchipCutter = new GenericCrafter("microchip-cutter"){{
             requirements(Category.crafting, with(NetroItems.dionite, 180, NetroItems.gatride, 100, NetroItems.hermite, 20, NetroItems.tarant, 40));

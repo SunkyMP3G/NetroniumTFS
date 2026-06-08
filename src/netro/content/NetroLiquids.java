@@ -7,7 +7,7 @@ import mindustry.type.*;
 public class NetroLiquids {
 
     public static Liquid
-        cleanWater, fuel, phomaxite, lava;
+        cleanWater, steam, fuel, phomaxite, lava;
 
     public static void load(){
         cleanWater = new Liquid("clean-water", Color.valueOf("5a6cbc")){{
@@ -15,6 +15,13 @@ public class NetroLiquids {
             barColor = Color.valueOf("5a6cbc");
             effect = StatusEffects.wet;
             capPuddles = false;
+        }};
+        steam = new Liquid("steam", Color.valueOf("aaaaff")){{ // Boiled water (obviously)
+            gas = true;
+            heatCapacity = 0.4f;
+            temperature = 0.75f;
+            barColor = Color.valueOf("aaaaff");
+            coolant = false;
         }};
         fuel = new Liquid("fuel", Color.valueOf("1b4239")){{
             viscosity = 0.6f;
@@ -26,7 +33,6 @@ public class NetroLiquids {
             capPuddles = false;
             canStayOn.add(cleanWater);
         }};
-
         phomaxite = new CellLiquid("phomaxite", Color.valueOf("4dae58")){{
             viscosity = 0.9f;
             heatCapacity = 0.3f;
@@ -42,13 +48,13 @@ public class NetroLiquids {
             colorFrom = Color.valueOf("55e665");
             colorTo = Color.valueOf("3c7042");
         }};
-
         lava = new Liquid("lava", Color.valueOf("de9458")){{
             viscosity = 0.8f;
             temperature = 1.2f;
             barColor = Color.valueOf("de9458");
             effect = NetroStatuses.lavaMelting;
             capPuddles = false;
+            lightColor = Color.valueOf("de9458").a(0.4f);
         }};
     }
 }

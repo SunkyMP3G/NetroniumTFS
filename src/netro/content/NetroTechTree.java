@@ -96,8 +96,6 @@ public class NetroTechTree {
             });
 
             nodeProduce(NetroItems.dionite, () -> {
-                nodeProduce(NetroItems.netroSand, () -> {
-                });
                 nodeProduce(NetroItems.gatride, () -> {
                     nodeProduce(NetroItems.plating, () -> {
                     });

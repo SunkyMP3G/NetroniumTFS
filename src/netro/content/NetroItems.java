@@ -6,11 +6,9 @@ import mindustry.type.*;
 public class NetroItems {
     public static Item
     // T1
-        dionite, gatride, netroSand, plating, hermite,
+        dionite, gatride, plating, hermite,
     // T2
         tarant, microchip, refinedTarant,
-    // Faulty items
-        dust,
     // Other
         soon;
 
