@@ -68,7 +68,7 @@ public class NetroBlocks {
     hermitePump, hermitePipe, hermiteRouter, hermiteUndPipe,
 
     // Production
-    sandFurnace, microchipPress,
+    platingPress, microchipCutter,
 
     // Energy
     dioniteWire, dioniteNode,
@@ -117,8 +117,6 @@ public class NetroBlocks {
         sandFloor = new Floor("netrosand-floor"){{
             variants = 3;
             wall = Blocks.sandWall;
-            itemDrop = NetroItems.netroSand;
-            playerUnmineable = true;
         }};
         retorFloor = new Floor("retor-floor"){{
             variants = 3;
@@ -149,9 +147,9 @@ public class NetroBlocks {
             attributes.set(Attribute.sand, 0.75f);
         }};
         //endregion Environment
-        Blocks.metalWall1.attributes.set(Attribute.sand, 2f);
-        Blocks.metalWall2.attributes.set(Attribute.sand, 2f);
-        Blocks.metalWall3.attributes.set(Attribute.sand, 2f);
+        Blocks.metalWall1.attributes.set(Attribute.sand, 1.5f);
+        Blocks.metalWall2.attributes.set(Attribute.sand, 1.5f);
+        Blocks.metalWall3.attributes.set(Attribute.sand, 1.5f);
 
         //region Props
         gatrideBoulder = new Prop("gatride-boulder"){{
@@ -435,48 +433,43 @@ public class NetroBlocks {
         //endregion Liquids
 
         //region Production
-        sandFurnace = new Separator("sand-furnace"){{
+        platingPress = new GenericCrafter("plating-press"){{
             requirements(Category.crafting, with(NetroItems.dionite, 90, NetroItems.gatride, 40));
             researchCost = with(NetroItems.dionite, 110, NetroItems.gatride, 30);
             health = 220;
-            results = with(
-                NetroItems.hermite, 95,
-                NetroItems.dust, 5
-            );
             craftTime = 180f;
             size = 2;
             hasPower = true;
             hasLiquids = false;
             itemCapacity = 20;
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawFlame(), new DrawDefault());
             ambientSound = Sounds.loopSmelter;
-            ambientSoundVolume = 0.12f;
+            ambientSoundVolume = 0.1f;
             squareSprite = false;
 
             consumeItems(with(NetroItems.netroSand, 3, NetroItems.gatride, 2));
+            outputItems = with(NetroItems.plating, 1);
             consumePower(4/energy);
+
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawArcSmelt(), new DrawDefault());
         }};
-        microchipPress = new Separator("microchip-press"){{
+        microchipCutter = new GenericCrafter("microchip-cutter"){{
             requirements(Category.crafting, with(NetroItems.dionite, 180, NetroItems.gatride, 100, NetroItems.hermite, 20, NetroItems.tarant, 40));
             researchCost = with(NetroItems.dionite, 300, NetroItems.gatride, 300, NetroItems.hermite, 80, NetroItems.tarant, 70);
-            health = 220;
-            size = 2;
+            health = 300;
+            size = 3;
 
             craftTime = 240f;
             hasPower = true;
             hasLiquids = false;
-            itemCapacity = 30;
+            itemCapacity = 15;
             ambientSound = Sounds.loopCircuit;
             ambientSoundVolume = 0.1f;
             squareSprite = false;
 
-            consumeItems(with(NetroItems.gatride, 15, NetroItems.hermite, 3, NetroItems.tarant, 10));
+            consumeItems(with(NetroItems.plating, 1, NetroItems.tarant, 5));
+            outputItems = with(NetroItems.microchip, 2);
             consumePower(8/energy);
-            results = with(
-                    NetroItems.microchip, 95,
-                    NetroItems.faultyMicrochip, 5
-            );
+
         }};
         //endregion Production
 

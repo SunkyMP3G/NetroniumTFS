@@ -22,8 +22,8 @@ public class NetroTechTree {
                 });
             });
 
-            node(NetroBlocks.sandFurnace, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
-                node(NetroBlocks.microchipPress, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
+            node(NetroBlocks.platingPress, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
+                node(NetroBlocks.microchipCutter, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
                 });
             });
 
@@ -96,19 +96,17 @@ public class NetroTechTree {
             });
 
             nodeProduce(NetroItems.dionite, () -> {
+                nodeProduce(NetroItems.netroSand, () -> {
+                });
                 nodeProduce(NetroItems.gatride, () -> {
+                    nodeProduce(NetroItems.plating, () -> {
+                    });
                     nodeProduce(NetroItems.tarant, () -> {
                         nodeProduce(NetroItems.microchip, () -> {
-                            nodeProduce(NetroItems.faultyMicrochip, () -> {
-                            });
                         });
                     });
                 });
-                nodeProduce(NetroItems.netroSand, () -> {
-                    nodeProduce(NetroItems.hermite, () -> {
-                    });
-                    nodeProduce(NetroItems.dust, () -> {
-                    });
+                nodeProduce(NetroItems.hermite, () -> {
                 });
                 nodeProduce(NetroLiquids.cleanWater, () -> {
                 });
@@ -118,8 +116,6 @@ public class NetroTechTree {
                 node(NetroGuideItems.energyGuide, Seq.with(new Objectives.Research(NetroItems.dionite)), () -> {
                 });
                 node(NetroGuideItems.bossGuide, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
-                    node(NetroGuideItems.bossRageGuide, Seq.with(new Objectives.SectorComplete(NetroSectors.shipyard)), () -> {
-                    });
                 });
             });
         });

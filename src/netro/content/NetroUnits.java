@@ -535,8 +535,8 @@ public class NetroUnits {
                 }};
             }});
         }};
-        // Boss special ability (Has to be outside otherwise it crashes)
-        swarm.abilities.add(new PhomaxiteUnitSpawnAbility(NetroUnits.swarm, 60f*10f, 0f, 0f)); //TODO balance time
+        // Boss special ability (Has to be outside otherwise it crashes) TODO balance time
+        swarm.abilities.add(new PhomaxiteUnitSpawnAbility(NetroUnits.swarm, 60f*10f, 0f, 0f));
         //endregion
 
         //region Golden

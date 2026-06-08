@@ -19,6 +19,7 @@ public class PowerWire extends PowerNode { //Shamelessly stolen from FOS
     public PowerWire(String name) {
         super(name);
         conductivePower = true;
+
         laserRange = 0f;
         maxNodes = 0;
         conveyorPlacement = true;
@@ -29,6 +30,7 @@ public class PowerWire extends PowerNode { //Shamelessly stolen from FOS
         hasShadow = true;
         swapDiagonalPlacement = false;
         group = BlockGroup.power;
+        alwaysReplace = true;
     }
 
     @Override

@@ -20,7 +20,7 @@ import static mindustry.Vars.*;
 public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
     public float heightScl = 0.9f, octaves = 8, persistence = 0.7f, heightPow = 3f, heightMult = 1.6f;
 
-    //TODO inline/remove
+    //TODO remake the whole thing somehow
     public static float arkThresh = 0.28f, arkScl = 0.83f;
     public static int arkSeed = 7, arkOct = 2;
     public static float liqThresh = 0.64f, liqScl = 87f, redThresh = 3.1f, noArkThresh = 0.3f;
@@ -80,14 +80,13 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
 
         if(ice < 0.6){
             if(result == NetroBlocks.grassFloor){
-                return NetroBlocks.stoneFloor; //TODO perhaps something else.
+                return NetroBlocks.stoneFloor;
             }
         }
 
         position = Tmp.v32;
 
         if(ice < redThresh - noArkThresh && Ridged.noise3d(seed + arkSeed, position.x + 2f, position.y + 8f, position.z + 1f, arkOct, arkScl) > arkThresh){
-            //TODO arkyic in middle
             result = NetroBlocks.gatrideFloor;
         }
 
@@ -114,7 +113,6 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
             tile.block = Blocks.air;
         }
 
-        //TODO only certain places should have carbon stone...
         if(Ridged.noise3d(seed + 2, position.x, position.y + 4f, position.z, 3, 6f) > 0.6){
             tile.floor = Blocks.carbonStone;
         }
@@ -168,7 +166,6 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
         pass((x, y) -> {
             if(floor != Blocks.beryllicStone) return;
 
-            //TODO bad
             if(Math.abs(noise(x, y + 500f, 5, 0.6f, 40f, 1f) - 0.5f) < 0.09f){
                 floor = Blocks.arkyicStone;
             }
@@ -186,7 +183,6 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
 
         blend(Blocks.arkyciteFloor, Blocks.arkyicStone, 4);
 
-        //TODO may overwrite floor blocks under walls and look bad
         blend(Blocks.slag, Blocks.yellowStonePlates, 4);
 
         distort(10f, 12f);
@@ -214,7 +210,6 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
 
             float max = 0;
             for(Point2 p : Geometry.d8){
-                //TODO I think this is the cause of lag
                 max = Math.max(max, world.getDarkness(x + p.x, y + p.y));
             }
             if(max > 0){
@@ -233,13 +228,11 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
 
         inverseFloodFill(tiles.getn(spawnX, spawnY));
 
-        //TODO veins, blend after inverse flood fill?
         blend(Blocks.redStoneWall, Blocks.denseRedStone, 4);
 
         //make sure enemies have room
         erase(endX, endY, 6);
 
-        //TODO enemies get stuck on 1x1 passages.
 
         tiles.getn(endX, endY).setOverlay(Blocks.spawn);
 
@@ -282,8 +275,7 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
                 ore = Blocks.air;
             }
 
-            //TODO test, different placement
-            //TODO this biome should have more blocks in general
+
             if(block == Blocks.regolithWall && rand.chance(0.3) && nearAir(x, y) && !near(x, y, 3, Blocks.crystalBlocks)){
                 block = Blocks.crystalBlocks;
                 ore = Blocks.air;

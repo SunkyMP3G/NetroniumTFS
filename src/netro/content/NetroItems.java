@@ -6,16 +6,16 @@ import mindustry.type.*;
 public class NetroItems {
     public static Item
     // T1
-        dionite, gatride, netroSand, hermite,
+        dionite, gatride, netroSand, plating, hermite,
     // T2
         tarant, microchip, refinedTarant,
     // Faulty items
-        dust, faultyMicrochip,
+        dust,
     // Other
         soon;
 
     public static void load(){
-        // T1
+        //region T1
         dionite = new Item("dionite", Color.valueOf("8a73c6")){{
             hardness = 1; // Mineable by dionite drill or better
             cost = 1f;
@@ -24,20 +24,19 @@ public class NetroItems {
         gatride = new Item("gatride", Color.valueOf("62bfa9")){{
             hardness = 2;
             cost = 1f;
-            flammability = 0.1f;
             buildable = true;
-        }};
-        netroSand = new Item("netro-sand", Color.valueOf("fac6a2")){{
-            hardness = 2;
-            buildable = false;
         }};
         hermite = new Item("hermite", Color.valueOf("dddddd")){{
             cost = 2f;
             buildable = true;
         }};
+        plating = new Item("plating", Color.valueOf("88ff88")){{
+            cost = 2f;
+            buildable = true;
+        }};
+        //endregion T1
 
-
-        // T2
+        //region T2
         tarant = new Item("tarant", Color.valueOf("eac2a9")){{
             hardness = 3; // At least Hermite Drill
             cost = 2f;
@@ -47,24 +46,13 @@ public class NetroItems {
             cost = 3f;
             buildable = true;
         }};
-        refinedTarant = new Item("refined-tarant", Color.valueOf("eac2a9")){{
-            cost = 3f;
-            buildable = true;
-        }};
+        //endregion T2
 
-
-        // Faulty items
-        dust = new Item("dust", Color.valueOf("333333")){{ // 5% Chance from Sand Separator
-            buildable = false;
-        }};
-        faultyMicrochip = new Item("microchip-faulty", Color.valueOf("333333")){{ // 5% chance from Microchip Press
-            buildable = false;
-        }};
-
-        // Other
+        //region Other
         soon = new Item("soon", Color.valueOf("000000")){{ // Soon™
             buildable = false;
             hideDatabase = true;
         }};
+        //endregion Other
     }
 }

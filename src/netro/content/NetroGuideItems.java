@@ -5,7 +5,7 @@ import mindustry.type.*;
 
 public class NetroGuideItems {
     public static Item
-            guideIntro, energyGuide, bossGuide, bossRageGuide;
+            guideIntro, energyGuide, bossGuide;
 
     public static void load(){
         guideIntro = new Item("guide-intro", Color.valueOf("000000")){{ // Intro
@@ -19,12 +19,6 @@ public class NetroGuideItems {
         }};
         bossGuide = new Item("guide-boss", Color.valueOf("000000")){{ // About bosses
             buildable = false;
-            hideDatabase = true;
-        }};
-        bossRageGuide = new Item("guide-boss-rage", Color.valueOf("000000")){{ // About boss rage levels
-            buildable = false;
-            frames = 4;
-            frameTime = 120f;
             hideDatabase = true;
         }};
     }
