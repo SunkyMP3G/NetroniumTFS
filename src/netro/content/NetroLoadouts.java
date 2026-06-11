@@ -7,7 +7,6 @@ public class NetroLoadouts {
         basicHusk;
 
     public static void load(){
-        //noinspection SpellCheckingInspection
         basicHusk = Schematics.readBase64("bXNjaAF4nCXMvQmAMBAG0C9BBLV3C5ewsnECsYjxwGByJ/mpxN1FfAM8aOgKFZtAaEaTnJ1KOtFa4UycZ3NB3w+6nZKN7spOGEDtzUY+QS+rQs+Uo7ArIcg+WIk0HN8BKPxeiIQbKg==");
     }
 }

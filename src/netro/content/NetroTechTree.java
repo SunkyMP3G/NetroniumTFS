@@ -23,7 +23,7 @@ public class NetroTechTree {
             });
 
             node(NetroBlocks.platingPress, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
-                node(NetroBlocks.microchipCutter, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
+                node(NetroBlocks.circuitAssembler, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
                 });
             });
 

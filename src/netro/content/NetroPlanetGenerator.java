@@ -28,7 +28,7 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
     public static float crystalScl = 0.9f, crystalMag = 0.3f;
     public static float airThresh = 0.13f, airScl = 14;
 
-    Block[] terrain = {NetroBlocks.grassFloor, NetroBlocks.gatrideFloor};
+    Block[] terrain = {NetroBlocks.crystallicFloor, NetroBlocks.gatrideFloor};
 
     {
         baseSeed = 0;
@@ -79,7 +79,7 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
         }
 
         if(ice < 0.6){
-            if(result == NetroBlocks.grassFloor){
+            if(result == NetroBlocks.crystallicFloor){
                 return NetroBlocks.stoneFloor;
             }
         }
@@ -93,7 +93,7 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
         if(ice > redThresh){
             result = NetroBlocks.gatrideFloor;
         }else if(ice > redThresh - 0.4f){
-            result = NetroBlocks.grassFloor;
+            result = NetroBlocks.crystallicFloor;
         }
 
         return result;

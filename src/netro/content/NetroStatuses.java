@@ -94,8 +94,8 @@ public class NetroStatuses {
         phomaxiteAlert = new StatusEffect("phomaxite-alert"){{ // Applied on alerted Phomaxite Abominations
             speedMultiplier = 2f;
         }};
-        phomaxiteMarked = new StatusEffect("phomaxite-marked"){{ // Visual status applied on units targeted by Phomaxite Abominations
-            speedMultiplier = 1f;
+        phomaxiteMarked = new StatusEffect("phomaxite-marked"){{ // Applied on units targeted by Phomaxite Abominations
+            speedMultiplier = 0.9f;
         }};
         corrosion = new StatusEffect("corrosion"){{ // Phomaxitic spits and explosions, stepping on phomaxite
             color = Color.valueOf("c4ff55");

@@ -579,7 +579,7 @@ public class NetroUnits {
                     length = 50f;
                     buildingDamageMultiplier = 1.2f;
                     pierce = true;
-                    pierceCap = 1;
+                    pierceCap = 2;
                     colors = new Color[]{Pal.accent.cpy().a(0.4f), Pal.accent, Color.white};
                 }};
             }});
