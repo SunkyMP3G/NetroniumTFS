@@ -35,7 +35,7 @@ public class NetroBlocks {
 
     //region Stuff
     // Environment
-    crystallicFloor, stoneFloor, gatrideFloor, retorFloor, iceFloor, metalLines,
+    crystallicFloor, crystallicFloorAlt, stoneFloor, gatrideFloor, retorFloor, iceFloor, metalLines,
     crystallicWall, stoneOreWall, gatrideWall, retorWall,
 
     // Props
@@ -68,7 +68,7 @@ public class NetroBlocks {
     hermitePump, hermitePipe, hermiteRouter, hermiteUndPipe,
 
     // Production
-    platingPress, circuitAssembler,
+    platingPress, circuitAssembler, waterBoiler, waterCooler,
 
     // Energy
     dioniteWire, dioniteNode,
@@ -103,6 +103,10 @@ public class NetroBlocks {
 
         //region Environment
         crystallicFloor = new Floor("crystallic-floor"){{
+            variants = 4;
+            wall = NetroBlocks.crystallicWall;
+        }};
+        crystallicFloorAlt = new Floor("crystallic-floor-alt"){{
             variants = 3;
             wall = NetroBlocks.crystallicWall;
         }};
@@ -111,7 +115,7 @@ public class NetroBlocks {
             wall = NetroBlocks.stoneOreWall;
         }};
         gatrideFloor = new Floor("gatride-floor"){{
-            variants = 5;
+            variants = 6;
             wall = NetroBlocks.gatrideWall;
         }};
         retorFloor = new Floor("retor-floor"){{
@@ -276,7 +280,7 @@ public class NetroBlocks {
             tier = 2;
             consumePower(1/energy);
             consumeLiquid(NetroLiquids.cleanWater, 2f/fluid).boost();
-            liquidBoostIntensity = 1.4f;
+            liquidBoostIntensity = 1f;
             liquidCapacity = 10f;
 
             squareSprite = false;
@@ -291,7 +295,7 @@ public class NetroBlocks {
             tier = 4;
             consumePower(2/energy);
             consumeLiquid(NetroLiquids.cleanWater, 3f/fluid).boost();
-            liquidBoostIntensity = 1.4f;
+            liquidBoostIntensity = 1f;
             liquidCapacity = 10f;
 
             squareSprite = false;
@@ -512,6 +516,44 @@ public class NetroBlocks {
                 }}
             );
         }};
+        waterBoiler = new GenericCrafter("water-boiler"){{ // To turn water into steam. Will be used for some later crafts and to not let Phomaxite annihilate your entire water logistics.
+            requirements(Category.crafting, with(NetroItems.dionite, 9999));
+            researchCost = with(NetroItems.dionite, 9999);
+            health = 420;
+            size = 2;
+
+            craftTime = 120f;
+            hasPower = true;
+            hasItems = false;
+            hasLiquids = true;
+            ambientSound = Sounds.loopSteam;
+            ambientSoundVolume = 0.1f;
+            squareSprite = false;
+            craftEffect = Fx.steam;
+
+            consumeLiquid(NetroLiquids.cleanWater, 10/fluid);
+            consumePower(4/energy);
+            outputLiquid = new LiquidStack(NetroLiquids.steam, 10/fluid);
+        }};
+        waterCooler = new GenericCrafter("water-cooler"){{ // The scanning confirmed the water inside is *cool*
+            requirements(Category.crafting, with(NetroItems.dionite, 9999));
+            researchCost = with(NetroItems.dionite, 9999);
+            health = 420;
+            size = 2;
+
+            craftTime = 120f;
+            hasPower = true;
+            hasItems = false;
+            hasLiquids = true;
+            ambientSound = Sounds.loopElectricHum;
+            ambientSoundVolume = 0.1f;
+            squareSprite = false;
+            craftEffect = Fx.none;
+
+            consumeLiquid(NetroLiquids.steam, 10/fluid);
+            consumePower(2/energy);
+            outputLiquid = new LiquidStack(NetroLiquids.cleanWater, 10/fluid);
+        }};
         //endregion Production
 
         //region Energy
@@ -665,8 +707,6 @@ public class NetroBlocks {
                     trailInterval = 0.2f;
                     trailWidth = 0f;
                     trailColor = Pal.accent;
-                    sticky = true;
-                    stickyExtraLifetime = 20f;
                     trailEffect = NetroFx.chainPart;
                     trailRotation = true;
                     ammoMultiplier = 1f;
