@@ -16,11 +16,11 @@ public class NetroLiquids {
             effect = StatusEffects.wet;
             capPuddles = false;
         }};
-        steam = new Liquid("steam", Color.valueOf("aaaaff")){{ // Boiled water (obviously)
+        steam = new Liquid("steam", Color.valueOf("ffffff")){{ // Boiled water (obviously)
             gas = true;
             heatCapacity = 0.4f;
             temperature = 0.75f;
-            barColor = Color.valueOf("aaaaff");
+            barColor = Color.valueOf("ffffff");
             coolant = false;
         }};
         fuel = new Liquid("fuel", Color.valueOf("1b4239")){{

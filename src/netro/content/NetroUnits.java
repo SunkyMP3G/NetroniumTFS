@@ -1,6 +1,7 @@
 package netro.content;
 
 import arc.graphics.*;
+import arc.math.Mathf;
 import arc.math.geom.Rect;
 import classes.*;
 import mindustry.Vars;
@@ -252,13 +253,17 @@ public class NetroUnits {
             health = 25f;
             armor = 0f;
             speed = 2.2f;
-            range = 40f;
+            range = 8f;
             drag = accel = 0.06f;
             flying = true;
             this.constructor = UnitEntity::create;
-            itemCapacity = 0;
+            itemCapacity = 0; //no
             researchCostMultiplier = 0f;
+            crashDamageMultiplier = 4f;
             engineOffset = 2;
+            wreckHealthMultiplier = 999f; // It has to fall to be useful
+
+            float fallDmgStat = Mathf.round(Mathf.pow(this.hitSize, 0.75f) * this.crashDamageMultiplier * 2.5f, 0.5f);
 
             weapons.add(new Weapon() {{
                 shootOnDeath = true;
@@ -272,8 +277,9 @@ public class NetroUnits {
                     collidesTiles = false;
                     collides = false;
                     hitSound = Sounds.explosion;
+                    damage = fallDmgStat;
 
-                    rangeOverride = 30f;
+                    rangeOverride = 8f;
                     hitEffect = Fx.pulverize;
                     speed = 0f;
                     splashDamageRadius = 0f;
@@ -455,7 +461,7 @@ public class NetroUnits {
 
         bomber = new NetroBossUnit("bomber"){{ // Kamikaze, but OP
             health = 7000;
-            armor = 3f;
+            armor = 0f;
             speed = 0.31f;
             drag = 0.04f;
             accel = 0.08f;
@@ -464,13 +470,15 @@ public class NetroUnits {
             hitSize = 30f;
             deathSound = Sounds.explosionCore;
             deathSoundVolume = 2f;
-            crashDamageMultiplier = 9999f; // Boss special ability
+            crashDamageMultiplier = 3120.44f; // Boss special ability
             flying = true;
             targetAir = false;
             targetFlags = new BlockFlag[]{BlockFlag.core, null};
             this.constructor = UnitEntity::create;
             engineOffset = 12;
             engineSize = 4;
+
+            float fallDmgStat = Mathf.round(Mathf.pow(this.hitSize, 0.75f) * this.crashDamageMultiplier * 2.5f, 0.5f);
 
             setEnginesMirror(
                     new UnitEngine(28 / 4f, -52 / 4f, 3f, 270f)
@@ -488,8 +496,9 @@ public class NetroUnits {
                     collidesTiles = false;
                     collides = false;
                     hitSound = Sounds.explosion;
+                    damage = fallDmgStat;
 
-                    rangeOverride = 30f;
+                    rangeOverride = 8f;
                     hitEffect = Fx.pulverize;
                     speed = 0f;
                     splashDamageRadius = 0f;
@@ -523,7 +532,8 @@ public class NetroUnits {
                 shootY = 7f;
                 mirror = false;
                 bullet = new LiquidBulletType(NetroLiquids.phomaxite){{
-                    damage = 80;
+                    damage = 50;
+                    buildingDamageMultiplier = 0.5f;
                     speed = 2.5f;
                     drag = 0.009f;
                     shootEffect = Fx.vaporSmall;
@@ -535,7 +545,7 @@ public class NetroUnits {
                 }};
             }});
         }};
-        // Boss special ability (Has to be outside otherwise it crashes) TODO balance time
+        // Boss special ability (Has to be outside otherwise it crashes)
         swarm.abilities.add(new PhomaxiteUnitSpawnAbility(NetroUnits.swarm, 60f*10f, 0f, 0f));
         //endregion
 
@@ -596,7 +606,7 @@ public class NetroUnits {
             this.constructor = UnitEntity::create;
             itemCapacity = 0;
             researchCostMultiplier = 0f;
-            crashDamageMultiplier = 0.2f; // You have kamikaze for that
+            crashDamageMultiplier = 0.2f;
 
             weapons.add(new Weapon("netroniummod-spark-g-weapon") {{
                 reload = 20f;
@@ -624,13 +634,15 @@ public class NetroUnits {
             speed = 2.6f;
             range = 40f;
             drag = accel = 0.06f;
-            crashDamageMultiplier = 4f;
+            crashDamageMultiplier = 7f;
             flying = true;
             this.constructor = UnitEntity::create;
             outlineColor = Color.valueOf("3f207d");
             itemCapacity = 0;
             researchCostMultiplier = 0f;
             engineOffset = 2;
+
+            float fallDmgStat = Mathf.round(Mathf.pow(this.hitSize, 0.75f) * this.crashDamageMultiplier * 2.5f, 0.5f);
 
             abilities.add(new ShieldArcAbility(){{
                 region = null;
@@ -656,6 +668,7 @@ public class NetroUnits {
                     collidesTiles = false;
                     collides = false;
                     hitSound = Sounds.explosion;
+                    damage = fallDmgStat;
 
                     rangeOverride = 30f;
                     hitEffect = Fx.pulverize;
@@ -734,6 +747,7 @@ public class NetroUnits {
             itemCapacity = 0;
             researchCostMultiplier = 0f;
             crashDamageMultiplier = 0f;
+            flyingLayer = 116f;
 
             isEnemy = false;
             canAttack = false;

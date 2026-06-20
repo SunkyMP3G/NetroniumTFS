@@ -13,6 +13,8 @@ public class NetroTechTree {
             });
 
             node(NetroBlocks.dioniteDrill, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
+                node(NetroBlocks.wallDrill, Seq.with(new Objectives.SectorComplete(NetroSectors.outpost)), () -> {
+                });
                 node(NetroBlocks.hermiteDrill, Seq.with(new Objectives.SectorComplete(NetroSectors.shipyard)), () -> {
                 });
             });
@@ -22,7 +24,7 @@ public class NetroTechTree {
                 });
             });
 
-            node(NetroBlocks.platingPress, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
+            node(NetroBlocks.platingPress, Seq.with(new Objectives.OnSector(NetroSectors.outpost)), () -> {
                 node(NetroBlocks.circuitAssembler, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
                 });
             });
@@ -38,6 +40,10 @@ public class NetroTechTree {
                             node(NetroBlocks.netroInvertedSorter, () -> {
                             });
                         });
+                        node(NetroBlocks.itemContainer, () -> {
+                            node(NetroBlocks.netroUnloader, () -> {
+                            });
+                        });
                         node(NetroBlocks.hermitePayloadConveyor, () -> {
                             node(NetroBlocks.hermitePayloadRouter, () -> {
                             });
@@ -46,7 +52,7 @@ public class NetroTechTree {
                 });
             });
 
-            node(NetroBlocks.hermitePump, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
+            node(NetroBlocks.hermitePump, Seq.with(new Objectives.OnSector(NetroSectors.outpost)), () -> {
                 node(NetroBlocks.hermitePipe, () -> {
                     node(NetroBlocks.hermiteRouter, () -> {
                     });
@@ -65,8 +71,10 @@ public class NetroTechTree {
             });
 
             node(NetroBlocks.origin, Seq.with(new Objectives.Research(NetroBlocks.dioniteDrill), new Objectives.Research(NetroBlocks.dioniteConveyor), new Objectives.Research(NetroBlocks.dioniteWire)), () -> {
-                node(NetroBlocks.tesla, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
+                node(NetroBlocks.tesla, Seq.with(new Objectives.OnSector(NetroSectors.outpost)), () -> {
                     // node(NetroBlocks.minigun, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
+                    // });
+                    // node(NetroBlocks.hook, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
                     // });
                 });
                 node(NetroBlocks.dioniteWall, () -> {
@@ -77,7 +85,12 @@ public class NetroTechTree {
                 });
             });
 
-            node(NetroBlocks.dioniteAssembler, Seq.with(new Objectives.OnSector(NetroSectors.theLake)), () -> {
+            node(NetroBlocks.dioniteRadar, Seq.with(new Objectives.OnSector(NetroSectors.firstSteps)), () -> {
+                node(NetroBlocks.tarantRadar, Seq.with(new Objectives.OnSector(NetroSectors.shipyard)), () -> {
+                });
+            });
+
+            node(NetroBlocks.dioniteAssembler, Seq.with(new Objectives.OnSector(NetroSectors.outpost)), () -> {
                 node(NetroUnits.spark);
                 node(NetroUnits.hope);
                 node(NetroUnits.kamikaze);
@@ -85,8 +98,8 @@ public class NetroTechTree {
             });
 
             node(NetroSectors.firstSteps, () -> {
-                node(NetroSectors.theLake, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps), new Objectives.Research(NetroBlocks.dioniteUndConveyor)), () -> {
-                    node(NetroSectors.shipyard, Seq.with(new Objectives.SectorComplete(NetroSectors.theLake)), () -> {
+                node(NetroSectors.outpost, Seq.with(new Objectives.SectorComplete(NetroSectors.firstSteps), new Objectives.Research(NetroBlocks.dioniteUndConveyor)), () -> {
+                    node(NetroSectors.shipyard, Seq.with(new Objectives.SectorComplete(NetroSectors.outpost)), () -> {
                         node(NetroSectors.challengeI, Seq.with(new Objectives.SectorComplete(NetroSectors.shipyard)), () -> {
                         });
                         node(NetroItems.soon, Seq.with(new Objectives.SectorComplete(NetroSectors.shipyard), new Objectives.Research(NetroBlocks.coreDome)), () -> {

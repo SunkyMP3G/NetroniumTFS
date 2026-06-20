@@ -1,12 +1,16 @@
 package netro;
 
-import arc.util.*;
-import mindustry.mod.*;
-
+import arc.util.Log;
+import mindustry.Vars;
+import mindustry.mod.Mod;
 import netro.content.*;
+import netro.ui.ModSettings;
+
 @SuppressWarnings("unused")
 
 public class Netronium extends Mod{
+    public boolean devVersion = true;
+
     @Override
     public void loadContent(){
         NetroItems.load();
@@ -22,6 +26,16 @@ public class Netronium extends Mod{
         NetroSectors.load();
         NetroLoreTree.load();
         NetroTechTree.load();
-        Log.info("Netronium mod (CU-4.dev) is loaded successfully!");
+        Log.info("Netronium-TFS (CU-4.dev) is loaded successfully!");
+        if (devVersion){
+            Log.warn("DEV version loaded. Expect crashes!");
+        }
+    }
+
+    @Override
+    public void init() {
+        if (!Vars.headless && Vars.ui != null) {
+            ModSettings.init();
+        }
     }
 }

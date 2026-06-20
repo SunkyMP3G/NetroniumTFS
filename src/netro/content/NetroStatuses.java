@@ -71,7 +71,7 @@ public class NetroStatuses {
         }};
 
         buildSuppress = new StatusEffect("build-suppress"){{ // When boss is alive, applied by world processors on any unit that can build
-            buildSpeedMultiplier = 0f;
+            buildSpeedMultiplier = 0.01f;
         }};
 
         buildSlowdown = new StatusEffect("build-slowdown"){{ // When boss is alive, applied by world processors on core unit
