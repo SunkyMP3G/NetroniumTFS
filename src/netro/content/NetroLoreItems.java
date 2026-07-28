@@ -1,6 +1,6 @@
 package netro.content;
 
-import arc.graphics.*;
+import classes.*;
 import mindustry.type.*;
 
 public class NetroLoreItems {
@@ -9,22 +9,11 @@ public class NetroLoreItems {
             loreIntro, cruxLore, shardedLore, netroniumLore;
 
     public static void load(){
-        loreIntro = new Item("lore-intro", Color.valueOf("000000")){{
-            buildable = false;
+        loreIntro = new GuideItem("lore-intro"){{
             alwaysUnlocked = true;
-            hideDatabase = true;
         }};
-        cruxLore = new Item("crux-lore", Color.valueOf("000000")){{
-            buildable = false;
-            hideDatabase = true;
-        }};
-        shardedLore = new Item("sharded-lore", Color.valueOf("000000")){{
-            buildable = false;
-            hideDatabase = true;
-        }};
-        netroniumLore = new Item("netronium-lore", Color.valueOf("000000")){{
-            buildable = false;
-            hideDatabase = true;
-        }};
+        cruxLore = new GuideItem("crux-lore"){};
+        shardedLore = new GuideItem("sharded-lore"){};
+        netroniumLore = new GuideItem("netronium-lore"){};
     }
 }

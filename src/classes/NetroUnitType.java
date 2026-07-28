@@ -7,5 +7,6 @@ public class NetroUnitType extends UnitType{
     public NetroUnitType(String name){
         super(name);
         outlineColor = Pal.darkOutline;
+        lowAltitude = true;
     }
 }

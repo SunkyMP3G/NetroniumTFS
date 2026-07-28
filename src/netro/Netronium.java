@@ -9,7 +9,7 @@ import netro.ui.ModSettings;
 @SuppressWarnings("unused")
 
 public class Netronium extends Mod{
-    public boolean devVersion = true;
+    public static final String modVersion = "CU-4";
 
     @Override
     public void loadContent(){
@@ -26,10 +26,7 @@ public class Netronium extends Mod{
         NetroSectors.load();
         NetroLoreTree.load();
         NetroTechTree.load();
-        Log.info("Netronium-TFS (CU-4.dev) is loaded successfully!");
-        if (devVersion){
-            Log.warn("DEV version loaded. Expect crashes!");
-        }
+        Log.info("Netroniummod @ is fully loaded", modVersion);
     }
 
     @Override

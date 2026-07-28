@@ -1,6 +1,7 @@
 package netro.content;
 
 import arc.graphics.*;
+import classes.*;
 import mindustry.type.*;
 
 public class NetroItems {
@@ -8,49 +9,44 @@ public class NetroItems {
     // T1
         dionite, gatride, plating, hermite,
     // T2
-        tarant, microchip, refinedTarant,
-    // Other
-        soon;
+        tarant, microchip, bitron;
 
     public static void load(){
         //region T1
-        dionite = new Item("dionite", Color.valueOf("8a73c6")){{ //Building, ammo
+        dionite = new Item("dionite", Color.valueOf("8a73c6")){{
             hardness = 1; // Mineable by dionite drill or better
-            cost = 1f;
+            cost = 0.5f;
             buildable = true;
         }};
-        gatride = new Item("gatride", Color.valueOf("62bfa9")){{ //Building, crafts
+        gatride = new Item("gatride", Color.valueOf("62bfa9")){{
             hardness = 2;
+            cost = 0.5f;
+            buildable = true;
+        }};
+        hermite = new Item("hermite", Color.valueOf("dddddd")){{
             cost = 1f;
             buildable = true;
         }};
-        hermite = new Item("hermite", Color.valueOf("dddddd")){{ //Building, crafts, ammo
-            cost = 2f;
-            buildable = true;
-        }};
-        plating = new Item("plating", Color.valueOf("88ff88")){{ //Building, crafts, units
-            cost = 2f;
+        plating = new Item("plating", Color.valueOf("44aa44")){{
+            cost = 1.2f;
             buildable = true;
         }};
         //endregion T1
 
         //region T2
-        tarant = new Item("tarant", Color.valueOf("eac2a9")){{ //Crafts
+        tarant = new Item("tarant", Color.valueOf("eac2a9")){{
             hardness = 3; // At least Hermite Drill
+            cost = 1.2f;
+            buildable = true;
+        }};
+        microchip = new Item("microchip", Color.valueOf("99ff55")){{
             cost = 2f;
             buildable = true;
         }};
-        microchip = new Item("microchip", Color.valueOf("99ff55")){{ //Logic building, units
-            cost = 3f;
+        bitron = new Item("bitron", Color.valueOf("919fe7")){{
+            cost = 1.5f;
             buildable = true;
         }};
         //endregion T2
-
-        //region Other
-        soon = new Item("soon", Color.valueOf("000000")){{ // Soon™
-            buildable = false;
-            hideDatabase = true;
-        }};
-        //endregion Other
     }
 }

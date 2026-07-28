@@ -16,18 +16,19 @@ public class NetroLiquids {
             effect = StatusEffects.wet;
             capPuddles = false;
         }};
-        steam = new Liquid("steam", Color.valueOf("ffffff")){{ // Boiled water (obviously)
+        steam = new Liquid("steam", Color.valueOf("ffffff")){{ // Boiled water
             gas = true;
             heatCapacity = 0.4f;
             temperature = 0.75f;
             barColor = Color.valueOf("ffffff");
             coolant = false;
+            hideDatabase = true;
         }};
         fuel = new Liquid("fuel", Color.valueOf("1b4239")){{
             viscosity = 0.6f;
-            flammability = 1.2f;
-            explosiveness = 1.2f;
-            heatCapacity = 0.7f;
+            flammability = 0.7f;
+            explosiveness = 0.7f;
+            heatCapacity = 0.5f;
             barColor = Color.valueOf("3b6259");
             effect = StatusEffects.tarred;
             capPuddles = false;
@@ -55,6 +56,7 @@ public class NetroLiquids {
             effect = NetroStatuses.lavaMelting;
             capPuddles = false;
             lightColor = Color.valueOf("de9458").a(0.4f);
+            hideDatabase = true;
         }};
     }
 }

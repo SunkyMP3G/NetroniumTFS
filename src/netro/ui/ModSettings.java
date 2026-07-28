@@ -1,8 +1,11 @@
 package netro.ui;
 
 import arc.Core;
+import arc.scene.ui.layout.*;
 import mindustry.Vars;
-import mindustry.ui.dialogs.SettingsMenuDialog.SettingsTable.*;
+import netro.content.*;
+
+import static mindustry.Vars.renderer;
 
 public class ModSettings {
     private static boolean initialized = false;
@@ -11,15 +14,15 @@ public class ModSettings {
         if (initialized) return;
         initialized = true;
 
-        Vars.ui.settings.addCategory("Netronium", root -> {
-            root.checkPref("disablecutscenes", false);
-
-            for (Setting setting : root.getSettings()) {
-                if (setting instanceof CheckSetting) {
-                    CheckSetting check = (CheckSetting) setting;
-                    check.title = "@settings." + check.name;
-                }
-            }
+        Vars.ui.settings.addCategory("@planet.netroniummod-netronium.name", "netroniummod-setting-icon", root -> {
+            //Disables camera control
+            root.checkPref("disablecutscenes", false, val -> {
+                NetroBlocks.cutsceneSkipper.health = val ? 1 : 0;
+            });
+            //Resets zoom level to default. For screenshots
+            root.checkPref("resetzoom", false, val -> {
+                renderer.setScale(Scl.scl(4));
+            });
         });
     }
 

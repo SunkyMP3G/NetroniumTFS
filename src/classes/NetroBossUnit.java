@@ -12,11 +12,12 @@ public class NetroBossUnit extends UnitType {
 
         //Would be too stupid for a boss to drown :D
         canDrown = false;
-        hovering = true;
         targetFlags = new BlockFlag[]{BlockFlag.core, null};
+        lowAltitude = true;
 
         targetPriority = 3f;
-        hidden = false; //Temporarily false
+        researchCostMultiplier = 0f;
+        hideDatabase = true;
         itemCapacity = 0;
     }
 }

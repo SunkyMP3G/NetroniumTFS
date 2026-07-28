@@ -31,6 +31,7 @@ public class PowerWire extends PowerNode { //Shamelessly stolen from FOS
         swapDiagonalPlacement = false;
         group = BlockGroup.power;
         alwaysReplace = true;
+        drawCached = false;
     }
 
     @Override
@@ -48,6 +49,7 @@ public class PowerWire extends PowerNode { //Shamelessly stolen from FOS
 
         //not needed for a wire
         removeBar("connections");
+        removeBar("batteries");
     }
 
     @Override

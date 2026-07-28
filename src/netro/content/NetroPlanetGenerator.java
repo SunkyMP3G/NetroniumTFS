@@ -410,6 +410,6 @@ public class NetroPlanetGenerator extends PlanetGenerator{ // God help ends here
 
         //all sectors are wave sectors
         state.rules.waves = false;
-        state.rules.showSpawns = true;
+        state.rules.hideSpawns = false;
     }
 }

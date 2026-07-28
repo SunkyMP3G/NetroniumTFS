@@ -1,25 +1,18 @@
 package netro.content;
 
-import arc.graphics.*;
+import classes.*;
 import mindustry.type.*;
 
 public class NetroGuideItems {
     public static Item
-            guideIntro, energyGuide, bossGuide;
+        guideIntro, energyGuide, bossGuide, soon;
 
     public static void load(){
-        guideIntro = new Item("guide-intro", Color.valueOf("000000")){{ // Intro
-            buildable = false;
+        guideIntro = new GuideItem("guide-intro"){{
             alwaysUnlocked = true;
-            hideDatabase = true;
         }};
-        energyGuide = new Item("guide-energy", Color.valueOf("000000")){{ // About core producing energy
-            buildable = false;
-            hideDatabase = true;
-        }};
-        bossGuide = new Item("guide-boss", Color.valueOf("000000")){{ // About bosses
-            buildable = false;
-            hideDatabase = true;
-        }};
+        energyGuide = new GuideItem("guide-energy"){};
+        bossGuide = new GuideItem("guide-boss"){};
+        soon = new GuideItem("soon"){};
     }
 }

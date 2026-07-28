@@ -8,16 +8,9 @@ import mindustry.world.meta.*;
 
 public class NetroWeathers {
     public static Weather
-    acidRain, snowy, blizzard, mist;
+    snowy, blizzard, mist;
 
     public static void load(){
-        acidRain = new RainWeather("acid-rain"){{
-            attrs.set(Attribute.light, -0.3f);
-            status = NetroStatuses.weakCorrosion;
-            sound = Sounds.rain;
-            soundVol = 0.33f;
-            color = Color.valueOf("55e665ff");
-        }};
 
         snowy = new ParticleWeather("snowy"){{
             particleRegion = "particle";
@@ -47,13 +40,13 @@ public class NetroWeathers {
             status = NetroStatuses.blizzard;
             attrs.set(Attribute.light, -1f);
             opacityMultiplier = 0.3f;
-            force = 2.1f;
+            force = 3f;
             sound = Sounds.wind;
             soundVol = 1.3f;
         }};
 
         mist = new ParticleWeather("mist"){{
-            noiseLayers = 4;
+            noiseLayers = 2;
             noiseLayerAlphaM = 0.7f;
             noiseLayerSpeedM = 2f;
             noiseLayerSclM = 0.6f;
