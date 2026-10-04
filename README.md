@@ -1,3 +1,5 @@
+# Mod is being remade. New repo: https://github.com/SunkyMP3G/Netronium
+
 ![logo](https://github.com/SunkyMP3G/Netronium-TFS/assets/125795960/ced234df-ce58-4878-b920-a0e654338c24)
 
 *The abandoned planet, surrounded by a dome, is waiting for you...*
